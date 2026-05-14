@@ -88,6 +88,9 @@ body {
 
 .page-height { min-height: 842px; }
 
+/* ---------- Print ---------- */
+
+
 /* ---------- Responsive base scale (kept from existing bricks) ---------- */
 @media screen and (max-width: 48em)   { html { font-size: 0.875em; } }
 @media screen and (max-width: 22.5em) { html { font-size: 0.77em;  } }

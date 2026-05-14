@@ -14,7 +14,7 @@
     display: block;
   }
 
-  .page-height { min-height: 297mm; }
+  .page-height { min-height: 842px; }
 
     .content-page-headline {
       position: relative;
@@ -90,7 +90,7 @@
   
 
     .contents-container {
-      height: calc(297mm - 80px);
+      height: calc(842px - 80px);
       display: flex;
       padding: 40px;
       flex-direction: column;
@@ -253,7 +253,7 @@
   
 
     .section-02 {
-      height: 297mm;
+      height: 842px;
       background: var(--color-primary-alt, #2a7fd9);
       position: relative;
       z-index: 2;
@@ -332,19 +332,19 @@
     }
     .box-content__middle h1 {
       color: var(--color-text-primary, #000);
-      font-size: 36px;
+      font-size: 32px;
       font-style: normal;
       font-weight: 800;
       line-height: 48px;
-      padding-bottom: 32px;
+      padding: 0px;
       text-align: center;
     }
     .box-content__middle p {
       color: var(--color-text-primary, #000);
-      font-size: 20px;
+      font-size: 16px;
       font-style: normal;
       font-weight: 400;
-      line-height: 29px;
+      line-height: 24px;
     }
   
 
@@ -392,8 +392,7 @@
     }
     .themed-section__decoration img {
       display: block;
-      max-width: 100%;
-      max-height: 124px;
+      max-width: 124px;
       width: 100%;
       height: auto;
     }
