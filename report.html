@@ -1513,6 +1513,9 @@ body {
 .reviews-box {
     font-family: var(--font-primary, 'Open Sans', serif);
   }
+  .container.reviews-box {
+    background: var(--color-reviews-bg, #f6f5f6);
+  }
   .reviews-container {
     display: flex;
     padding: 3em;
@@ -1651,6 +1654,11 @@ body {
 
 
   @media print {
+    .container.reviews-box {
+      background: var(--color-reviews-bg, #f6f5f6);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
     .reviews-container {
       display: flex;
       padding: 24px;

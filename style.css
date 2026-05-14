@@ -856,6 +856,9 @@ body {
 .reviews-box {
     font-family: var(--font-primary, 'Open Sans', serif);
   }
+  .container.reviews-box {
+    background: var(--color-reviews-bg, #f6f5f6);
+  }
   .reviews-container {
     display: flex;
     padding: 3em;
@@ -1125,4 +1128,3 @@ body {
   --radius-pill: 9999px;
   --radius-full: 50%;
 }
-

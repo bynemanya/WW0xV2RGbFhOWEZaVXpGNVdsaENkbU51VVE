@@ -640,7 +640,12 @@
       line-height: 42px;
     }
 
-.reviews-container {
+.container.reviews-box {
+      background: var(--color-reviews-bg, #f6f5f6);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .reviews-container {
       display: flex;
       padding: 24px;
       flex-direction: column;
