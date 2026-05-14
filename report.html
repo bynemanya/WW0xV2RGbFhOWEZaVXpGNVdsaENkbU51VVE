@@ -149,8 +149,8 @@ body {
   .headline-box__title {
     color: var(--color-text-inverse, #fff);
     text-align: center;
-    font-family: 'Playfair Display', serif;
-    font-size: 2.25em;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 40px;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
@@ -167,7 +167,7 @@ body {
   }
   .headline-box__text p {
     color: var(--color-text-inverse, #fff);
-    font-family: 'Playfair Display', serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 1em;
     font-style: normal;
     font-weight: 400;
@@ -216,13 +216,14 @@ body {
       align-self: stretch;
       margin: 0 auto;
       padding: 24px;
+      gap: 0;
       background: linear-gradient(56deg, var(--color-header-v2-bg-start, #1d4cb3) 15%, var(--color-gradient-end, #33b9de) 85%);
     }
     .headline-box__title {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Open Sans', sans-serif;
       color: var(--color-text-inverse, #fff);
       text-align: center;
-      font-size: 48px;
+      font-size: 40px;
       font-style: normal;
       font-weight: 800;
       line-height: normal;
@@ -233,6 +234,7 @@ body {
       display: flex;
       margin: 24px auto 0 auto;
       padding: 16px 24px;
+      gap: 0;
       flex-direction: column;
       justify-content: center;
       border-radius: 3.555px;
@@ -240,6 +242,7 @@ body {
     }
     .headline-box__text p {
       color: var(--color-text-inverse, #fff);
+      font-family: 'Open Sans', sans-serif;
       font-size: 18px;
       font-style: normal;
       font-weight: 400;
@@ -254,6 +257,7 @@ body {
       flex-direction: column;
       align-items: center;
       padding: 10px 0;
+      gap: 0;
       text-align: center;
     }
     .headline-box__footer p {
@@ -526,7 +530,7 @@ body {
   }
   .themed-section__title {
     color: var(--color-text-primary, #000);
-    font-family: 'Playfair Display', serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 2em;
     font-style: normal;
     font-weight: 800;
@@ -552,6 +556,9 @@ body {
       margin-bottom: 40px;
       position: relative;
       z-index: 3;
+    }
+    .themed-section--v1 .themed-section__header {
+      padding: 0;
     }
     .themed-section__number-box {
       float: left;
@@ -584,11 +591,11 @@ body {
     }
     .themed-section__title {
       color: var(--color-text-primary, #000);
-      font-family: 'Playfair Display', serif;
-      font-size: 32px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 36px;
       font-style: normal;
       font-weight: 800;
-      line-height: 42px;
+      line-height: 48px;
       margin-bottom: 40px;
     }
   }
@@ -665,7 +672,7 @@ body {
     overflow-wrap: anywhere;
   }
   .chapter-body__styled-box-subheadline {
-    font-family: var(--font-display-serif, 'Playfair Display', serif);
+    font-family: var(--font-primary, 'Open Sans', serif);
     font-size: var(--fs-xl, 1.5em);
     font-weight: 800;
     line-height: 1.3;
@@ -683,22 +690,281 @@ body {
     gap: var(--space-2, 0.5em);
   }
 
+  /* colored_box — different-colored-boxes.png */
+  .chapter-body__colored-box {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4, 1em);
+    padding: var(--space-6, 1.5em);
+    background: var(--color-accent-soft, #f3e8ff);
+    color: var(--color-text-primary, #000);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .chapter-body__colored-box-subheadline {
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: 1em;
+    font-weight: 700;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+  .chapter-body__colored-box-paragraph {
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: var(--fs-sm, 0.875em);
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+
+  /* bordered_box — left-border-box.png */
+  .chapter-body__bordered-box {
+    border-left: 3px solid var(--color-accent, #1d4cb3);
+    padding: 0 0 0 1em;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .chapter-body__bordered-box-paragraph {
+    color: var(--color-text-muted, rgba(0, 0, 0, 0.8));
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: var(--fs-sm, 0.875em);
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+
+  /* centered_quote — centered-quote-paragraph.png */
+  .chapter-body__centered-quote {
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-style: italic;
+    font-size: 1em;
+    line-height: 1.5;
+    text-align: center;
+    max-width: 28em;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-wrap: anywhere;
+  }
+
+  /* titled_box — background-title-box(+imageIcon).png */
+  .chapter-body__titled-box {
+    border: 1px solid var(--color-border, #e5e7eb);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--color-bg-container, #fff);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .chapter-body__titled-box-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.625em;
+    padding: 1em 1.5em;
+    background: var(--color-accent-soft, #e5eefe);
+  }
+  .chapter-body__titled-box-icon {
+    width: 1.5em;
+    height: 1.5em;
+    flex: 0 0 auto;
+    object-fit: contain;
+  }
+  /* When the icon slot is empty, the placeholder leaves src="images/"; hide the broken img. */
+  .chapter-body__titled-box-icon[src="images/"] { display: none; }
+  .chapter-body__titled-box-title {
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: 1em;
+    font-weight: 700;
+    color: var(--color-text-primary, #000);
+    overflow-wrap: anywhere;
+  }
+  .chapter-body__titled-box-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 1em 1.5em 1.5em;
+  }
+  .chapter-body__titled-box-paragraph {
+    color: var(--color-text-muted, rgba(0, 0, 0, 0.8));
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: var(--fs-sm, 0.875em);
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+  .chapter-body__titled-box-list {
+    list-style: disc;
+    padding-left: var(--space-6, 1.5em);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2, 0.5em);
+    color: var(--color-text-muted, rgba(0, 0, 0, 0.8));
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: var(--fs-sm, 0.875em);
+    line-height: 1.6;
+  }
+  .chapter-body__titled-box-separator {
+    display: block;
+    max-width: 12.5625em;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  /* benefit_list — list-benefit-box.png */
+  .chapter-body__benefit-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+    width: 100%;
+    box-sizing: border-box;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .chapter-body__benefit-list-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75em;
+    padding: 0.75em 1em;
+    background: var(--color-accent-soft, #ffd9e6);
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+  .chapter-body__benefit-list-icon {
+    width: 1.25em;
+    height: 1.25em;
+    flex: 0 0 auto;
+    color: var(--color-accent, #e91e63);
+  }
+  .chapter-body__benefit-list-label {
+    color: var(--color-text-primary, #000);
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: var(--fs-sm, 0.875em);
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
   @media print {
     /* WeasyPrint drops `gap` on flex containers; re-express as margin between adjacent siblings. */
     .chapter-body { gap: 0; }
     .chapter-body > * + * { margin-top: 2em; }
+    .blank-chapter .chapter-body {
+      margin: 0 auto;
+      flex: 1;
+      justify-content: center;
+    }
 
     .chapter-body__text-block { gap: 0; }
     .chapter-body__text-block > * + * { margin-top: var(--space-6, 1.5em); }
+    .chapter-body__paragraph {
+      font-size: 20px;
+      line-height: 29px;
+    }
 
     .chapter-body__highlight-box { gap: 0; }
     .chapter-body__highlight-box > * + * { margin-top: var(--space-4, 1em); }
+    .chapter-body__highlight-box-paragraph {
+      font-size: 20px;
+      line-height: 29px;
+    }
 
     .chapter-body__styled-box { gap: 0; }
     .chapter-body__styled-box > * + * { margin-top: var(--space-4, 1em); }
 
     .chapter-body__styled-box-list { gap: 0; }
     .chapter-body__styled-box-list > li + li { margin-top: var(--space-2, 0.5em); }
+    .chapter-body__styled-box-subheadline,
+    .chapter-body__styled-box-paragraph {
+      font-size: 20px;
+      line-height: 29px;
+    }
+    .chapter-body__styled-box-list > li {
+      font-size: 18px;
+      line-height: 27px;
+    }
+
+    .chapter-body__separator {
+      display: block;
+      max-width: 201px;
+      width: 100%;
+      margin: 16px auto;
+    }
+
+    /* colored_box */
+    .chapter-body__colored-box { gap: 0; }
+    .chapter-body__colored-box > * + * { margin-top: var(--space-4, 1em); }
+    .chapter-body__colored-box-subheadline {
+      font-size: 20px;
+      line-height: 29px;
+    }
+    .chapter-body__colored-box-paragraph {
+      font-size: 20px;
+      line-height: 29px;
+    }
+
+    /* bordered_box */
+    .chapter-body__bordered-box-paragraph {
+      font-size: 20px;
+      line-height: 29px;
+    }
+
+    /* centered_quote */
+    .chapter-body__centered-quote {
+      font-size: 18px;
+      line-height: 27px;
+      max-width: 420px;
+    }
+
+    /* titled_box */
+    .chapter-body__titled-box-header { gap: 0; }
+    .chapter-body__titled-box-header > * + * { margin-left: 0.625em; }
+    .chapter-body__titled-box-body { gap: 0; }
+    .chapter-body__titled-box-body > * + * { margin-top: 1em; }
+    .chapter-body__titled-box-list { gap: 0; }
+    .chapter-body__titled-box-list > li + li { margin-top: var(--space-2, 0.5em); }
+    .chapter-body__titled-box-title {
+      font-size: 20px;
+      line-height: 29px;
+    }
+    .chapter-body__titled-box-paragraph {
+      font-size: 20px;
+      line-height: 29px;
+    }
+    .chapter-body__titled-box-list > li {
+      font-size: 18px;
+      line-height: 27px;
+    }
+    .chapter-body__titled-box-separator {
+      max-width: 201px;
+      margin: 16px auto;
+    }
+
+    /* benefit_list — float-based two-column layout for WeasyPrint */
+    .chapter-body__benefit-list {
+      display: block;
+      gap: 0;
+      overflow: hidden; /* clear the floats so the next block doesn't wrap */
+    }
+    .chapter-body__benefit-list-item {
+      display: block;
+      float: left;
+      width: 48%;
+      margin: 0 4% 1em 0;
+      gap: 0;
+    }
+    .chapter-body__benefit-list-item:nth-child(2n) {
+      margin-right: 0;
+    }
+    .chapter-body__benefit-list-item > * + * { margin-left: 0.75em; }
+    .chapter-body__benefit-list-icon {
+      width: 18px;
+      height: 18px;
+      vertical-align: middle;
+    }
+    .chapter-body__benefit-list-label {
+      font-size: 18px;
+      line-height: 27px;
+      vertical-align: middle;
+    }
   }
 
 /* brick: blank */
@@ -751,11 +1017,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 10.0625em;
+    max-width: 61px;
     width: 100%;
   }
   .themed-section__decoration img {
-    max-width: 124px;
+    max-width: 61px;
     width: 100%;
   }
   .section-02 {
@@ -841,6 +1107,12 @@ body {
       z-index: 3;
       padding: 0 40px;
     }
+    .themed-section--v2 .themed-section__header {
+      padding: 0;
+    }
+    .themed-section.themed-section--v2 {
+      background-color: var(--color-primary-alt, #2a7fd9);
+    }
     .themed-section__number-box {
       float: left;
       width: 70px;
@@ -860,7 +1132,7 @@ body {
     }
     .themed-section__decoration {
       float: right;
-      width: 161px;
+      width: 61.91px;
       height: 112px;
       display: flex;
       align-items: center;
@@ -868,18 +1140,17 @@ body {
     }
     .themed-section__decoration img {
       display: block;
-      max-width: 100%;
-      max-height: 124px;
-      width: 100%;
-      height: auto;
+      width: 61px;
     }
     .box-content__middle {
       display: flex;
       width: 170mm;
+      max-width: 100%;
       padding: 40px;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      gap: 0;
       position: absolute;
       left: 0;
       right: 0;
@@ -894,7 +1165,7 @@ body {
       font-style: normal;
       font-weight: 800;
       line-height: 48px;
-      padding-bottom: 32px;
+      padding: 0 0 32px 0;
       text-align: center;
     }
     .box-content__middle p {
@@ -946,21 +1217,21 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 10.0625em;
+    max-width: 61px;
     width: 100%;
   }
   .themed-section__decoration img {
-    max-width: 124px;
+    max-width: 61px;
     width: 100%;
   }
   .themed-section__title {
     color: var(--color-text-primary, #000);
-    line-height: 1.3;
+    font-family: 'Open Sans', sans-serif;
     font-size: 2em;
+    font-style: normal;
     font-weight: 800;
-    padding-top: 10px;
+    line-height: 1.3;
     text-align: left;
-    align-self: stretch;
   }
   .themed-section__page-frame {
     position: relative;
@@ -995,6 +1266,9 @@ body {
       position: relative;
       z-index: 3;
     }
+    .themed-section--v3 .themed-section__header {
+      padding: 0;
+    }
     .themed-section__number-box {
       float: left;
       width: 70px;
@@ -1014,7 +1288,7 @@ body {
     }
     .themed-section__decoration {
       float: right;
-      width: 161px;
+      width: 61.91px;
       height: 112px;
       display: flex;
       align-items: center;
@@ -1022,13 +1296,11 @@ body {
     }
     .themed-section__decoration img {
       display: block;
-      max-width: 100%;
-      max-height: 124px;
-      width: 100%;
-      height: auto;
+      width: 61px;
     }
     .themed-section__title {
       color: var(--color-text-primary, #000);
+      font-family: 'Open Sans', sans-serif;
       font-size: 36px;
       font-style: normal;
       font-weight: 800;
@@ -1057,7 +1329,7 @@ body {
     align-self: stretch;
     width: 100%;
     box-sizing: border-box;
-    background: var(--color-bg-page-cream, #fffcf8);
+    background-color: var(--color-bg-container, #fff);
   }
   .themed-section__header {
     display: flex;
@@ -1075,7 +1347,7 @@ body {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    background-color: var(--color-primary, #2c4fbd);
+    background-color: var(--color-primary, #3f559d);
   }
   .themed-section__number {
     color: var(--color-text-inverse, #fff);
@@ -1113,6 +1385,9 @@ body {
       position: relative;
       z-index: 3;
     }
+    .themed-section--v4 .themed-section__header {
+      padding: 0;
+    }
     .themed-section__number-box {
       float: left;
       width: 70px;
@@ -1121,7 +1396,7 @@ body {
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      background-color: var(--color-primary, #2c4fbd);
+      background-color: var(--color-primary, #3f559d);
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
@@ -1236,25 +1511,334 @@ body {
     }
   }
 
+/* brick: reviews_v1 */
+.reviews-box {
+    font-family: var(--font-primary, 'Open Sans', serif);
+  }
+  .reviews-container {
+    display: flex;
+    padding: 3em;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    width: 100%;
+    background: var(--color-reviews-bg, #f6f5f6);
+  }
+  .rating-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    align-self: stretch;
+    margin: 0;
+    gap: 4px;
+  }
+  .rating-stars {
+    display: flex;
+    max-width: 28.75em;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5em;
+    align-self: stretch;
+  }
+  .reviews-title {
+    color: var(--color-reviews-text, #222163);
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: 1.25em;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+  .rating-number-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .rating-number {
+    color: var(--color-reviews-text, #222163);
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: 1.125em;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .rating-number-container img {
+    max-width: 120px;
+    display: block;
+  }
+  .reviews-avatars-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  .reviews-avatars {
+    display: flex;
+    align-items: center;
+  }
+  .reviews-avatar {
+    width: 1.429em;
+    height: 1.429em;
+    border-radius: var(--radius-full, 50%);
+    border: 0.056em solid var(--color-reviews-avatar-border, #d0ad67);
+    background: var(--color-bg-container, #fff);
+    margin-left: -0.3125em;
+  }
+  .reviews-avatar:first-child { margin-left: 0; }
+  .recommended-by {
+    color: var(--color-reviews-text, #222163);
+    text-align: right;
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: 0.625em;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  .review-item {
+    display: flex;
+    gap: 1em;
+    align-self: stretch;
+    align-items: flex-start;
+    border-radius: 1em;
+    background: var(--color-bg-container, #fff);
+    padding: 1em;
+    margin-bottom: 1em;
+  }
+  .review-item:last-child { margin-bottom: 0; }
+  .review-item__avatar img {
+    width: 3em;
+    height: 3em;
+    border-radius: 5.071em;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+  .review-item__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    flex: 1 0 0;
+  }
+  .review-item__info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    align-self: stretch;
+  }
+  .review-item__info img {
+    width: 100%;
+    max-width: 80px;
+    display: block;
+  }
+  .review-item__name {
+    color: var(--color-reviews-text, #222163);
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: 1em;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+  .review-item__date {
+    color: var(--color-reviews-text, #222163);
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: 1em;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+  .review-item__text {
+    color: var(--color-reviews-text, #222163);
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: 0.875em;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+
+  @media print {
+    .reviews-container {
+      display: flex;
+      padding: 24px;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      width: 100%;
+      background: var(--color-reviews-bg, #f6f5f6);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .rating-summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      align-self: stretch;
+      margin-bottom: 16px;
+      gap: 0;
+    }
+    .reviews-title {
+      color: var(--color-reviews-text, #222163);
+      font-family: var(--font-primary, 'Open Sans', serif);
+      font-size: 24px;
+      font-weight: 700;
+      font-style: normal;
+      line-height: 34px;
+    }
+    .rating-number-container {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-top: 8px;
+    }
+    .rating-number {
+      color: var(--color-reviews-text, #222163);
+      font-family: var(--font-primary, 'Open Sans', serif);
+      font-size: 20px;
+      font-weight: 600;
+      font-style: normal;
+      line-height: 28px;
+      display: inline-block;
+      vertical-align: middle;
+      padding-right: 8px;
+    }
+    .rating-number-container img {
+      max-width: 31.75mm;
+      display: block;
+    }
+    .rating-stars {
+      display: flex;
+      max-width: none;
+      width: 133mm;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      align-self: stretch;
+    }
+    .reviews-avatars-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 0;
+      align-self: stretch;
+    }
+    .reviews-avatars {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .reviews-avatar {
+      width: 22.862px;
+      height: 22.862px;
+      border-radius: 124px;
+      border: 0.892px solid var(--color-reviews-avatar-border, #d0ad67);
+      background: var(--color-bg-container, #fff);
+      margin-left: -5px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .reviews-avatar:first-child { margin-left: 0; }
+    .recommended-by {
+      color: var(--color-reviews-text, #222163);
+      text-align: right;
+      font-family: var(--font-primary, 'Open Sans', serif);
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      text-transform: uppercase;
+      margin-top: 8px;
+      padding: 0;
+    }
+    .review-item {
+      display: flex;
+      gap: 0;
+      align-self: stretch;
+      align-items: flex-start;
+      border-radius: 16px;
+      background: var(--color-bg-container, #fff);
+      padding: 16px;
+      margin-bottom: 16px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .review-item:last-child { margin-bottom: 0; }
+    .review-item__avatar img {
+      display: flex;
+      width: 48px;
+      height: 48px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 81.136px;
+      aspect-ratio: 1 / 1;
+      margin-right: 16px;
+      object-fit: cover;
+    }
+    .review-item__content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      flex: 1 0 0;
+    }
+    .review-item__info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      margin: 4px;
+      align-self: stretch;
+    }
+    .review-item__info img {
+      width: 100%;
+      max-width: 80px;
+      display: block;
+    }
+    .review-item__name {
+      color: var(--color-reviews-text, #222163);
+      font-family: var(--font-primary, 'Open Sans', serif);
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+    .review-item__date {
+      color: var(--color-reviews-text, #222163);
+      font-family: var(--font-primary, 'Open Sans', serif);
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 21px;
+      padding: 2px 0;
+    }
+    .review-item__text {
+      color: var(--color-reviews-text, #222163);
+      font-family: var(--font-primary, 'Open Sans', serif);
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 30px;
+      margin-top: 8px;
+      padding: 0;
+    }
+  }
+
 /* brick: disclaimer_v1 */
 .disclaimer-container {
     display: flex;
-    padding: var(--space-12, 48px) var(--space-10, 40px);
+    padding: 3em 2.5em;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    gap: var(--space-16, 64px);
+    gap: 4em;
     background: var(--color-bg-container, #fff);
     align-self: stretch;
   }
   .disclaimer {
     display: flex;
-    padding: var(--space-10, 40px);
+    padding: 2.5em;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-6, 24px);
+    gap: 1.5em;
     align-self: stretch;
-    border-radius: var(--radius-xl, 24px);
+    border-radius: 1.5em;
     background: var(--color-disclaimer-bg, #ffdcdc);
   }
   .disclaimer__header {
@@ -1265,13 +1849,13 @@ body {
   }
   .disclaimer__title {
     position: relative;
-    padding: 0 var(--space-8, 30px);
+    padding: 0 30px;
     color: var(--color-disclaimer-title, #ff2c24);
     font-family: var(--font-primary, 'Open Sans', serif);
     text-align: center;
-    font-size: var(--fs-xl, 28px);
+    font-size: 1.5625em;
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1.1;
   }
   .disclaimer__title::before,
   .disclaimer__title::after {
@@ -1293,153 +1877,98 @@ body {
     display: flex;
     flex-direction: column;
     gap: var(--space-4, 16px);
-    border-top: 1px solid var(--color-disclaimer-border, #ff433a);
-    border-bottom: 1px solid var(--color-disclaimer-border, #ff433a);
-    padding: var(--space-6, 24px) 0;
+    border-top: 0.0625em solid var(--color-disclaimer-border, #ff433a);
+    border-bottom: 0.0625em solid var(--color-disclaimer-border, #ff433a);
+    padding: 1.5em 0;
+    color: var(--color-text-muted, rgba(0, 0, 0, 0.7));
+    font-size: 0.875em;
+    font-weight: 400;
+    line-height: 1.7;
   }
   .disclaimer__text {
-    color: var(--color-text-muted, rgba(0, 0, 0, 0.7));
     font-family: var(--font-primary, 'Open Sans', serif);
-    font-size: var(--fs-md, 20px);
-    line-height: 1.5;
     margin: 0;
   }
 
-/* brick: reviews_v1 */
-.reviews-box {
-    font-family: var(--font-primary, 'Open Sans', serif);
-  }
-  .reviews-container {
-    display: flex;
-    padding: var(--space-6, 24px);
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-4, 16px);
-    width: 100%;
-    background: var(--color-reviews-bg, #f6f5f6);
-  }
-  .rating-summary {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    align-self: stretch;
-    margin-bottom: var(--space-4, 16px);
-    gap: var(--space-4, 16px);
-  }
-  .rating-stars {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-2, 8px);
-  }
-  .reviews-title {
-    color: var(--color-reviews-text, #222163);
-    font-family: var(--font-primary, 'Open Sans', serif);
-    font-size: var(--fs-lg, 24px);
-    font-weight: 700;
-    line-height: 1.4;
-  }
-  .rating-number-container {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2, 8px);
-  }
-  .rating-number {
-    color: var(--color-reviews-text, #222163);
-    font-family: var(--font-primary, 'Open Sans', serif);
-    font-size: var(--fs-md, 20px);
-    font-weight: 600;
-    line-height: 1.4;
-  }
-  .rating-number-container img {
-    max-width: 120px;
-    display: block;
-  }
-  .reviews-avatars-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-    gap: var(--space-2, 8px);
-  }
-  .reviews-avatars {
-    display: flex;
-    align-items: center;
-  }
-  .reviews-avatar {
-    width: 22.862px;
-    height: 22.862px;
-    border-radius: var(--radius-full, 50%);
-    border: 1px solid var(--color-reviews-avatar-border, #d0ad67);
-    background: var(--color-bg-container, #fff);
-    margin-left: -5px;
-  }
-  .reviews-avatar:first-child { margin-left: 0; }
-  .recommended-by {
-    color: var(--color-reviews-text, #222163);
-    text-align: right;
-    font-family: var(--font-primary, 'Open Sans', serif);
-    font-size: var(--fs-xs, 12px);
-    font-weight: 500;
-    text-transform: uppercase;
-  }
-  .review-item {
-    display: flex;
-    gap: var(--space-4, 16px);
-    align-self: stretch;
-    align-items: flex-start;
-    border-radius: var(--radius-lg, 16px);
-    background: var(--color-bg-container, #fff);
-    padding: var(--space-4, 16px);
-    margin-bottom: var(--space-4, 16px);
-  }
-  .review-item:last-child { margin-bottom: 0; }
-  .review-item__avatar img {
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-full, 50%);
-    object-fit: cover;
-  }
-  .review-item__content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    flex: 1 0 0;
-  }
-  .review-item__info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    align-self: stretch;
-    padding-bottom: var(--space-1, 4px);
-  }
-  .review-item__info img {
-    max-width: 80px;
-    width: 100%;
-    display: block;
-  }
-  .review-item__name {
-    color: var(--color-reviews-text, #222163);
-    font-family: var(--font-primary, 'Open Sans', serif);
-    font-size: var(--fs-md, 18px);
-    font-weight: 700;
-    line-height: 1.4;
-  }
-  .review-item__date {
-    color: var(--color-reviews-text, #222163);
-    font-family: var(--font-primary, 'Open Sans', serif);
-    font-size: var(--fs-sm, 16px);
-    font-weight: 400;
-    line-height: 1.4;
-    padding: 2px 0;
-  }
-  .review-item__text {
-    color: var(--color-reviews-text, #222163);
-    font-family: var(--font-primary, 'Open Sans', serif);
-    font-size: var(--fs-sm, 16px);
-    font-weight: 400;
-    line-height: 1.5;
-    margin-top: var(--space-2, 8px);
+
+  @media print {
+    .disclaimer-container {
+      display: flex;
+      padding: 48px 40px;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0;
+      background: var(--color-bg-container, #fff);
+      align-self: stretch;
+    }
+    .disclaimer {
+      display: flex;
+      padding: 40px;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      align-self: stretch;
+      border-radius: 24px;
+      background: var(--color-disclaimer-bg, #ffdcdc);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .disclaimer__header {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 0 24px 0;
+    }
+    .disclaimer__title {
+      position: relative;
+      padding: 0 30px;
+      color: var(--color-disclaimer-title, #ff2c24);
+      font-family: var(--font-primary, 'Open Sans', serif);
+      text-align: center;
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 34px;
+    }
+    .disclaimer__title::before,
+    .disclaimer__title::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 24px;
+      height: 24px;
+      background-image: url(images/disclaimer_icon.png);
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .disclaimer__title::before { left: 0; }
+    .disclaimer__title::after  { right: 0; }
+    .disclaimer__body {
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-top: 1px solid var(--color-disclaimer-border, #ff433a);
+      border-bottom: 1px solid var(--color-disclaimer-border, #ff433a);
+      padding: 24px 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .disclaimer__text {
+      color: var(--color-text-muted, rgba(0, 0, 0, 0.7));
+      font-family: var(--font-primary, 'Open Sans', serif);
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 30px;
+      margin: 24px 0 0 0;
+    }
+    .disclaimer__body .disclaimer__text:first-child {
+      margin-top: 0;
+    }
   }
 
 /* theme */
@@ -1507,19 +2036,19 @@ body {
 <article class="rm-page" data-page="1" data-brick="header_v2"><section class="container">
   <div class="content-page-headline page-height" style="background-image: url(images/cosmicorion_logo_white.png), url(images/default_header_bg.jpg);">
     <div class="headline-box">
-      <h1 class="headline-box__title">{{static_1}}</h1>
+      <h1 class="headline-box__title">Your Personal Report</h1>
       <div class="headline-box__text">
         
-        <p>{{static_2}}</p>
+        <p>A short introduction to set the tone before the chapters begin.</p>
         
-        <p>{{static_3}}</p>
+        <p>Read it slowly — the report unfolds layer by layer.</p>
         
       </div>
       <div class="headline-box__footer">
         
-        <p>{{static_4}}</p>
+        <p>Prepared for Adam</p>
         
-        <p>{{static_5}}</p>
+        <p>14 May 2026</p>
         
       </div>
     </div>
@@ -1528,27 +2057,27 @@ body {
 <article class="rm-page" data-page="2" data-brick="Table_of_contents_v1"><section class="container">
   <div class="contents-container page-height">
     <div class="contents-container__inner">
-      <h1 class="contents-text">{{static_6}}</h1>
+      <h1 class="contents-text">Contents</h1>
       <ul class="contents-list">
         
         <li class="contents-item">
           <span class="contents-item__number">1</span>
-          <p class="contents-item__title">{{static_7}}</p>
+          <p class="contents-item__title">Chapter One — Foundations</p>
         </li>
         
         <li class="contents-item">
           <span class="contents-item__number">2</span>
-          <p class="contents-item__title">{{static_8}}</p>
+          <p class="contents-item__title">Chapter Two — The Shift</p>
         </li>
         
         <li class="contents-item">
           <span class="contents-item__number">3</span>
-          <p class="contents-item__title">{{static_9}}</p>
+          <p class="contents-item__title">Chapter Three — Looking Ahead</p>
         </li>
         
         <li class="contents-item">
           <span class="contents-item__number">4</span>
-          <p class="contents-item__title">{{static_10}}</p>
+          <p class="contents-item__title">Chapter Four — Continuation</p>
         </li>
         
       </ul>
@@ -1558,12 +2087,12 @@ body {
 <article class="rm-page" data-page="3" data-brick="quote_v1"><section class="container">
   <div class="quote-page page-height">
     <div class="quote-wrapper-inner">
-      <p>{{static_11}}</p>
+      <p>&quot;Small steps, taken steadily, change more than grand gestures ever could.&quot;</p>
     </div>
   </div>
 </section></article>
 <article class="rm-page" data-page="4" data-brick="themed_v1"><section class="container">
-  <div class="themed-section page-height">
+  <div class="themed-section themed-section--v1 page-height">
     <div class="themed-section__header">
       <div class="themed-section__number-box">
         <span class="themed-section__number">1</span>
@@ -1572,7 +2101,7 @@ body {
         <img src="images/default_header_decoration_2.png" alt="header decoration" />
       </div>
     </div>
-    <h1 class="themed-section__title">{{static_12}}</h1>
+    <h1 class="themed-section__title">Chapter One — Foundations</h1>
     <!-- Shared body region for Chapter_starter bricks.
      Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
      The block region is heterogeneous + ordered: builder strips these prototypes,
@@ -1582,16 +2111,22 @@ body {
 <div class="chapter-body">
   
     <div class="chapter-body__text-block">
-      <p class="chapter-body__paragraph">{{static_13}}</p>
+      <p class="chapter-body__paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. This opening chapter lays out the core ideas you&#x27;ll encounter, with each paragraph adding another layer to the foundation.</p>
     </div>
     
     <div class="chapter-body__text-block">
-      <p class="chapter-body__paragraph">{{static_14}}</p>
+      <p class="chapter-body__paragraph">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
     </div>
     
     <div class="chapter-body__highlight-box">
-      <p class="chapter-body__highlight-box-paragraph">{{static_15}}</p>
+      <p class="chapter-body__highlight-box-paragraph">Everything that follows rests on the foundations laid out here — take a moment with it before moving on.</p>
     </div>
+    
+    <div class="chapter-body__bordered-box">
+      <p class="chapter-body__bordered-box-paragraph">Look back on past relationships and reflect on the patterns that have emerged. Knowing what you truly need will help you align with someone who shares your values.</p>
+    </div>
+    
+    <p class="chapter-body__centered-quote">*The truth is, understanding the foundations isn&#x27;t about memorizing them — it&#x27;s about letting them shape how you read the rest.*</p>
     
 </div>
 
@@ -1608,23 +2143,37 @@ body {
 <div class="chapter-body">
   
     <div class="chapter-body__text-block">
-      <p class="chapter-body__paragraph">{{static_16}}</p>
+      <p class="chapter-body__paragraph">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. The themes introduced now will reappear throughout the rest of the report in different forms.</p>
     </div>
     
     <div class="chapter-body__styled-box">
-      <h3 class="chapter-body__styled-box-subheadline">{{static_17}}</h3>
-      <p class="chapter-body__styled-box-paragraph">{{static_18}}</p>
+      <h3 class="chapter-body__styled-box-subheadline">Key takeaways</h3>
+      <p class="chapter-body__styled-box-paragraph">A short summary of what to keep in mind as you read on into the following chapters.</p>
       
-      <ul class="chapter-body__styled-box-list"><li>{{static_19}}</li></ul>
+      <ul class="chapter-body__styled-box-list"><li>First foundational idea — pay attention to recurring patterns</li></ul>
       
-      <ul class="chapter-body__styled-box-list"><li>{{static_20}}</li></ul>
+      <ul class="chapter-body__styled-box-list"><li>Second foundational idea — small shifts compound over time</li></ul>
       
-      <ul class="chapter-body__styled-box-list"><li>{{static_21}}</li></ul>
+      <ul class="chapter-body__styled-box-list"><li>Third foundational idea — context matters more than intensity</li></ul>
+      
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">1. Name the feeling</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">Help yourself identify the emotions surfacing as you read — naming them is the first step to working with them.</p>
+      
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">2. Co-regulate</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">Model deep breathing or grounding to show how emotions can be managed, not feared.</p>
       
     </div>
     
     <div class="chapter-body__text-block">
-      <p class="chapter-body__paragraph">{{static_22}}</p>
+      <p class="chapter-body__paragraph">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.</p>
     </div>
     
     <img class="chapter-body__separator"
@@ -1646,15 +2195,15 @@ body {
 <div class="chapter-body">
   
     <div class="chapter-body__text-block">
-      <p class="chapter-body__paragraph">{{static_23}}</p>
+      <p class="chapter-body__paragraph">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
     </div>
     
     <div class="chapter-body__text-block">
-      <p class="chapter-body__paragraph">{{static_24}}</p>
+      <p class="chapter-body__paragraph">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt.</p>
     </div>
     
     <div class="chapter-body__highlight-box">
-      <p class="chapter-body__highlight-box-paragraph">{{static_25}}</p>
+      <p class="chapter-body__highlight-box-paragraph">A second highlight that lands on the overflow page, reinforcing the chapter&#x27;s central idea.</p>
     </div>
     
     <img class="chapter-body__separator"
@@ -1666,7 +2215,7 @@ body {
   </div>
 </section></article>
 <article class="rm-page" data-page="7" data-brick="themed_v2"><section class="container">
-  <div class="themed-section section-02 page-height">
+  <div class="themed-section themed-section--v2 section-02 page-height">
     <img src="images/default_theme_v2_background_image.jpg" alt="cover background" class="headline-img_02" />
     <div class="themed-section__header">
       <div class="themed-section__number-box">
@@ -1677,7 +2226,7 @@ body {
       </div>
     </div>
     <div class="box-content__middle">
-      <h1>{{static_26}}</h1>
+      <h1>Chapter Two — The Shift</h1>
       <!-- Shared body region for Chapter_starter bricks.
      Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
      The block region is heterogeneous + ordered: builder strips these prototypes,
@@ -1687,7 +2236,7 @@ body {
 <div class="chapter-body">
   
     <div class="chapter-body__text-block">
-      <p class="chapter-body__paragraph">{{static_27}}</p>
+      <p class="chapter-body__paragraph">A cover-style intro paragraph that sits over the page background. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. This chapter marks the turning point in the report — the place where everything you read so far starts to rearrange itself into a new pattern.</p>
     </div>
     
 </div>
@@ -1706,23 +2255,65 @@ body {
 <div class="chapter-body">
   
     <div class="chapter-body__text-block">
-      <p class="chapter-body__paragraph">{{static_28}}</p>
+      <p class="chapter-body__paragraph">Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
     </div>
     
     <div class="chapter-body__styled-box">
-      <h3 class="chapter-body__styled-box-subheadline">{{static_29}}</h3>
-      <p class="chapter-body__styled-box-paragraph">{{static_30}}</p>
+      <h3 class="chapter-body__styled-box-subheadline">An aside</h3>
+      <p class="chapter-body__styled-box-paragraph">A short detour to highlight an idea that doesn&#x27;t quite fit the main flow but is worth noting.</p>
       
-      <ul class="chapter-body__styled-box-list"><li>{{static_31}}</li></ul>
+      <ul class="chapter-body__styled-box-list"><li>First bullet — observe the shift as it happens</li></ul>
       
-      <ul class="chapter-body__styled-box-list"><li>{{static_32}}</li></ul>
+      <ul class="chapter-body__styled-box-list"><li>Second bullet — resist the urge to label it too quickly</li></ul>
       
-      <ul class="chapter-body__styled-box-list"><li>{{static_33}}</li></ul>
+      <ul class="chapter-body__styled-box-list"><li>Third bullet — let the meaning settle on its own</li></ul>
       
     </div>
     
+    <div class="chapter-body__titled-box">
+      <div class="chapter-body__titled-box-header">
+        <img class="chapter-body__titled-box-icon" src="images/default_zodiac_icon.png" alt="" />
+        <h3 class="chapter-body__titled-box-title">Aries – The Trailblazer</h3>
+      </div>
+      <div class="chapter-body__titled-box-body">
+        
+        <p class="chapter-body__titled-box-paragraph">Bold and direct, Aries energy thrives on momentum. Lean into a fresh start and trust your first instinct.</p>
+        
+        
+        <ul class="chapter-body__titled-box-list"><li>Take one decisive action this week</li></ul>
+        
+        <ul class="chapter-body__titled-box-list"><li>Notice where hesitation slows you down</li></ul>
+        
+        
+      </div>
+    </div>
+    
+    <ul class="chapter-body__benefit-list">
+      
+      <li class="chapter-body__benefit-list-item">
+        <img class="chapter-body__benefit-list-icon" src="images/default_benefit_check_icon.png" alt="" />
+        <span class="chapter-body__benefit-list-label">faster decisions</span>
+      </li>
+      
+      <li class="chapter-body__benefit-list-item">
+        <img class="chapter-body__benefit-list-icon" src="images/default_benefit_check_icon.png" alt="" />
+        <span class="chapter-body__benefit-list-label">clearer focus</span>
+      </li>
+      
+      <li class="chapter-body__benefit-list-item">
+        <img class="chapter-body__benefit-list-icon" src="images/default_benefit_check_icon.png" alt="" />
+        <span class="chapter-body__benefit-list-label">stronger conviction</span>
+      </li>
+      
+      <li class="chapter-body__benefit-list-item">
+        <img class="chapter-body__benefit-list-icon" src="images/default_benefit_check_icon.png" alt="" />
+        <span class="chapter-body__benefit-list-label">less self-doubt</span>
+      </li>
+      
+    </ul>
+    
     <div class="chapter-body__highlight-box">
-      <p class="chapter-body__highlight-box-paragraph">{{static_34}}</p>
+      <p class="chapter-body__highlight-box-paragraph">The turning point arrives quietly, before you realize it&#x27;s happened.</p>
     </div>
     
     <img class="chapter-body__separator"
@@ -1735,7 +2326,7 @@ body {
 </section></article>
 <article class="rm-page" data-page="9" data-brick="themed_v3"><section class="container">
   <div class="page-height themed-section__page-frame">
-    <div class="themed-section">
+    <div class="themed-section themed-section--v3">
       <div class="themed-section__header">
         <div class="themed-section__number-box">
           <span class="themed-section__number">3</span>
@@ -1744,7 +2335,7 @@ body {
           <img src="images/default_header_decoration_2.png" alt="header decoration" />
         </div>
       </div>
-      <h1 class="themed-section__title">{{static_35}}</h1>
+      <h1 class="themed-section__title">Chapter Three — Looking Ahead</h1>
       <!-- Shared body region for Chapter_starter bricks.
      Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
      The block region is heterogeneous + ordered: builder strips these prototypes,
@@ -1754,11 +2345,11 @@ body {
 <div class="chapter-body">
   
     <div class="chapter-body__text-block">
-      <p class="chapter-body__paragraph">{{static_36}}</p>
+      <p class="chapter-body__paragraph">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate.</p>
     </div>
     
     <div class="chapter-body__text-block">
-      <p class="chapter-body__paragraph">{{static_37}}</p>
+      <p class="chapter-body__paragraph">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.</p>
     </div>
     
 </div>
@@ -1778,27 +2369,71 @@ body {
 <div class="chapter-body">
   
     <div class="chapter-body__highlight-box">
-      <p class="chapter-body__highlight-box-paragraph">{{static_38}}</p>
+      <p class="chapter-body__highlight-box-paragraph">What comes next is shaped by the choices you make today, not by the ones you&#x27;ve already made.</p>
     </div>
     
     <div class="chapter-body__text-block">
-      <p class="chapter-body__paragraph">{{static_39}}</p>
+      <p class="chapter-body__paragraph">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</p>
     </div>
     
     <div class="chapter-body__styled-box">
-      <h3 class="chapter-body__styled-box-subheadline">{{static_40}}</h3>
-      <p class="chapter-body__styled-box-paragraph">{{static_41}}</p>
+      <h3 class="chapter-body__styled-box-subheadline">Things to try this week</h3>
+      <p class="chapter-body__styled-box-paragraph">A small set of practical steps to carry the chapter&#x27;s ideas into the days ahead.</p>
       
-      <ul class="chapter-body__styled-box-list"><li>{{static_42}}</li></ul>
+      <ul class="chapter-body__styled-box-list"><li>Revisit the foundations from chapter one with fresh eyes</li></ul>
       
-      <ul class="chapter-body__styled-box-list"><li>{{static_43}}</li></ul>
+      <ul class="chapter-body__styled-box-list"><li>Name one specific shift you noticed in your own life this month</li></ul>
       
-      <ul class="chapter-body__styled-box-list"><li>{{static_44}}</li></ul>
+      <ul class="chapter-body__styled-box-list"><li>Pick a single action from this chapter and commit to it for seven days</li></ul>
       
     </div>
     
+    <div class="chapter-body__bordered-box">
+      <p class="chapter-body__bordered-box-paragraph">Pause here and consider what these ideas would look like if you applied them this week — not someday, but now.</p>
+    </div>
+    
+    <p class="chapter-body__centered-quote">*What comes next is shaped by the choices you make today, not by the ones you&#x27;ve already made.*</p>
+    
+    <div class="chapter-body__titled-box">
+      <div class="chapter-body__titled-box-header">
+        <img class="chapter-body__titled-box-icon" src="images/default_zodiac_icon.png" alt="" />
+        <h3 class="chapter-body__titled-box-title">Gemini – The Connector</h3>
+      </div>
+      <div class="chapter-body__titled-box-body">
+        
+        <p class="chapter-body__titled-box-paragraph">Curious and adaptive, Gemini energy excels at bridging people and ideas. Look for conversations you&#x27;ve been avoiding.</p>
+        
+        
+        
+      </div>
+    </div>
+    
+    <ul class="chapter-body__benefit-list">
+      
+      <li class="chapter-body__benefit-list-item">
+        <img class="chapter-body__benefit-list-icon" src="images/default_benefit_check_icon.png" alt="" />
+        <span class="chapter-body__benefit-list-label">deeper bonding</span>
+      </li>
+      
+      <li class="chapter-body__benefit-list-item">
+        <img class="chapter-body__benefit-list-icon" src="images/default_benefit_check_icon.png" alt="" />
+        <span class="chapter-body__benefit-list-label">invisible advantage</span>
+      </li>
+      
+      <li class="chapter-body__benefit-list-item">
+        <img class="chapter-body__benefit-list-icon" src="images/default_benefit_check_icon.png" alt="" />
+        <span class="chapter-body__benefit-list-label">stronger pull</span>
+      </li>
+      
+      <li class="chapter-body__benefit-list-item">
+        <img class="chapter-body__benefit-list-icon" src="images/default_benefit_check_icon.png" alt="" />
+        <span class="chapter-body__benefit-list-label">emotional receptivity</span>
+      </li>
+      
+    </ul>
+    
     <div class="chapter-body__text-block">
-      <p class="chapter-body__paragraph">{{static_45}}</p>
+      <p class="chapter-body__paragraph">Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
     </div>
     
 </div>
@@ -1816,7 +2451,7 @@ body {
 <div class="chapter-body">
   
     <div class="chapter-body__highlight-box">
-      <p class="chapter-body__highlight-box-paragraph">{{static_46}}</p>
+      <p class="chapter-body__highlight-box-paragraph">Small commitments, kept consistently, do more than ambitious plans ever do.</p>
     </div>
     
     <img class="chapter-body__separator"
@@ -1828,13 +2463,13 @@ body {
   </div>
 </section></article>
 <article class="rm-page" data-page="12" data-brick="themed_v4"><section class="container">
-  <div class="themed-section page-height">
+  <div class="themed-section themed-section--v4 page-height">
     <div class="themed-section__header">
       <div class="themed-section__number-box">
         <span class="themed-section__number">4</span>
       </div>
     </div>
-    <h1 class="themed-section__title">{{static_47}}</h1>
+    <h1 class="themed-section__title">Chapter Four — Continuation</h1>
     <!-- Shared body region for Chapter_starter bricks.
      Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
      The block region is heterogeneous + ordered: builder strips these prototypes,
@@ -1844,15 +2479,15 @@ body {
 <div class="chapter-body">
   
     <div class="chapter-body__text-block">
-      <p class="chapter-body__paragraph">{{static_48}}</p>
+      <p class="chapter-body__paragraph">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
     </div>
     
     <div class="chapter-body__highlight-box">
-      <p class="chapter-body__highlight-box-paragraph">{{static_49}}</p>
+      <p class="chapter-body__highlight-box-paragraph">The end of one chapter is rarely the end of the story it tells.</p>
     </div>
     
     <div class="chapter-body__text-block">
-      <p class="chapter-body__paragraph">{{static_50}}</p>
+      <p class="chapter-body__paragraph">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt, neque porro quisquam est.</p>
     </div>
     
 </div>
@@ -1870,19 +2505,78 @@ body {
 <div class="chapter-body">
   
     <div class="chapter-body__styled-box">
-      <h3 class="chapter-body__styled-box-subheadline">{{static_51}}</h3>
-      <p class="chapter-body__styled-box-paragraph">{{static_52}}</p>
+      <h3 class="chapter-body__styled-box-subheadline">Carrying it forward</h3>
+      <p class="chapter-body__styled-box-paragraph">A short closing aside on how to keep the report&#x27;s ideas alive after you put it down.</p>
       
-      <ul class="chapter-body__styled-box-list"><li>{{static_53}}</li></ul>
+      <ul class="chapter-body__styled-box-list"><li>Revisit one chapter each week for the next month</li></ul>
       
-      <ul class="chapter-body__styled-box-list"><li>{{static_54}}</li></ul>
+      <ul class="chapter-body__styled-box-list"><li>Share a passage that struck you with someone you trust</li></ul>
       
-      <ul class="chapter-body__styled-box-list"><li>{{static_55}}</li></ul>
+      <ul class="chapter-body__styled-box-list"><li>Note where the ideas show up in your everyday life</li></ul>
       
     </div>
     
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">4. Close with care</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">End every reflection by naming one thing you&#x27;re grateful for. It anchors the lesson in your body, not just your mind.</p>
+      
+    </div>
+    
+    <div class="chapter-body__titled-box">
+      <div class="chapter-body__titled-box-header">
+        <img class="chapter-body__titled-box-icon" src="images/default_zodiac_icon.png" alt="" />
+        <h3 class="chapter-body__titled-box-title">Pisces – The Dreamer</h3>
+      </div>
+      <div class="chapter-body__titled-box-body">
+        
+        <p class="chapter-body__titled-box-paragraph">Imaginative and intuitive, Pisces energy invites you to trust the quieter signals. Pay attention to what surfaces in stillness.</p>
+        
+        
+        <ul class="chapter-body__titled-box-list"><li>Spend ten minutes daily doing nothing in particular</li></ul>
+        
+        <ul class="chapter-body__titled-box-list"><li>Write down the first image that comes to mind on waking</li></ul>
+        
+        
+      </div>
+    </div>
+    
+    <ul class="chapter-body__benefit-list">
+      
+      <li class="chapter-body__benefit-list-item">
+        <img class="chapter-body__benefit-list-icon" src="images/default_benefit_check_icon.png" alt="" />
+        <span class="chapter-body__benefit-list-label">lasting clarity</span>
+      </li>
+      
+      <li class="chapter-body__benefit-list-item">
+        <img class="chapter-body__benefit-list-icon" src="images/default_benefit_check_icon.png" alt="" />
+        <span class="chapter-body__benefit-list-label">gentle momentum</span>
+      </li>
+      
+      <li class="chapter-body__benefit-list-item">
+        <img class="chapter-body__benefit-list-icon" src="images/default_benefit_check_icon.png" alt="" />
+        <span class="chapter-body__benefit-list-label">trusted instincts</span>
+      </li>
+      
+      <li class="chapter-body__benefit-list-item">
+        <img class="chapter-body__benefit-list-icon" src="images/default_benefit_check_icon.png" alt="" />
+        <span class="chapter-body__benefit-list-label">quiet confidence</span>
+      </li>
+      
+      <li class="chapter-body__benefit-list-item">
+        <img class="chapter-body__benefit-list-icon" src="images/default_benefit_check_icon.png" alt="" />
+        <span class="chapter-body__benefit-list-label">open curiosity</span>
+      </li>
+      
+      <li class="chapter-body__benefit-list-item">
+        <img class="chapter-body__benefit-list-icon" src="images/default_benefit_check_icon.png" alt="" />
+        <span class="chapter-body__benefit-list-label">steady follow-through</span>
+      </li>
+      
+    </ul>
+    
     <div class="chapter-body__text-block">
-      <p class="chapter-body__paragraph">{{static_56}}</p>
+      <p class="chapter-body__paragraph">Closing paragraph after the aside — a moment of pause before the report turns its final pages.</p>
     </div>
     
     <img class="chapter-body__separator"
@@ -1904,11 +2598,11 @@ body {
 <div class="chapter-body">
   
     <div class="chapter-body__text-block">
-      <p class="chapter-body__paragraph">{{static_57}}</p>
+      <p class="chapter-body__paragraph">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur, quis autem vel eum iure reprehenderit.</p>
     </div>
     
     <div class="chapter-body__highlight-box">
-      <p class="chapter-body__highlight-box-paragraph">{{static_58}}</p>
+      <p class="chapter-body__highlight-box-paragraph">A final highlight that arrives on the overflow page, gently closing the chapter.</p>
     </div>
     
     <img class="chapter-body__separator"
@@ -1923,33 +2617,17 @@ body {
   <div class="quote-page page-height">
     <img class="quote-page__bg" src="images/default_quote_bg.jpg" alt="quote background" />
     <div class="quote-wrapper-inner">
-      <p>{{static_59}}</p>
+      <p>&quot;Every ending is a constellation rearranging itself into a new beginning.&quot;</p>
     </div>
   </div>
 </section></article>
-<article class="rm-page" data-page="16" data-brick="disclaimer_v1"><section class="container">
-  <div class="disclaimer-container page-height">
-    <div class="disclaimer">
-      <div class="disclaimer__header">
-        <h2 class="disclaimer__title">{{static_60}}</h2>
-      </div>
-      <div class="disclaimer__body">
-        
-        <p class="disclaimer__text">{{static_61}}</p>
-        
-        <p class="disclaimer__text">{{static_62}}</p>
-        
-      </div>
-    </div>
-  </div>
-</section></article>
-<article class="rm-page" data-page="17" data-brick="reviews_v1"><section class="container reviews-box">
+<article class="rm-page" data-page="16" data-brick="reviews_v1"><section class="container reviews-box">
   <div class="reviews-container page-height">
     <div class="rating-summary">
       <div class="rating-stars">
-        <h2 class="reviews-title">{{static_63}}</h2>
+        <h2 class="reviews-title">Reader Reviews</h2>
         <div class="rating-number-container">
-          <span class="rating-number">{{static_64}}</span>
+          <span class="rating-number">4.8 rating</span>
           <img src="images/img_reviews_stars.png" alt="">
         </div>
       </div>
@@ -1960,7 +2638,7 @@ body {
           <img src="images/img_advisor_03.png" alt="" class="reviews-avatar">
           <img src="images/img_advisor_04.png" alt="" class="reviews-avatar">
         </div>
-        <p class="recommended-by">{{static_65}}</p>
+        <p class="recommended-by">Recommended by 512 people</p>
       </div>
     </div>
 
@@ -1971,11 +2649,11 @@ body {
       </div>
       <div class="review-item__content">
         <div class="review-item__info">
-          <h3 class="review-item__name">{{static_66}}</h3>
-          <p class="review-item__date">{{static_67}}</p>
+          <h3 class="review-item__name">Lorem</h3>
+          <p class="review-item__date">2 days ago</p>
           <img src="images/img_reviews_stars.png" alt="">
         </div>
-        <p class="review-item__text">{{static_68}}</p>
+        <p class="review-item__text">&quot;A genuinely useful read from start to finish.&quot;</p>
       </div>
     </div>
     
@@ -1985,11 +2663,11 @@ body {
       </div>
       <div class="review-item__content">
         <div class="review-item__info">
-          <h3 class="review-item__name">{{static_69}}</h3>
-          <p class="review-item__date">{{static_70}}</p>
+          <h3 class="review-item__name">Dolor</h3>
+          <p class="review-item__date">4 days ago</p>
           <img src="images/img_reviews_stars.png" alt="">
         </div>
-        <p class="review-item__text">{{static_71}}</p>
+        <p class="review-item__text">&quot;Clear, thoughtful, and well structured.&quot;</p>
       </div>
     </div>
     
@@ -1999,11 +2677,11 @@ body {
       </div>
       <div class="review-item__content">
         <div class="review-item__info">
-          <h3 class="review-item__name">{{static_72}}</h3>
-          <p class="review-item__date">{{static_73}}</p>
+          <h3 class="review-item__name">Sit</h3>
+          <p class="review-item__date">1 day ago</p>
           <img src="images/img_reviews_stars.png" alt="">
         </div>
-        <p class="review-item__text">{{static_74}}</p>
+        <p class="review-item__text">&quot;Loved the pacing — easy to follow without feeling shallow.&quot;</p>
       </div>
     </div>
     
@@ -2013,14 +2691,30 @@ body {
       </div>
       <div class="review-item__content">
         <div class="review-item__info">
-          <h3 class="review-item__name">{{static_75}}</h3>
-          <p class="review-item__date">{{static_76}}</p>
+          <h3 class="review-item__name">Amet</h3>
+          <p class="review-item__date">3 days ago</p>
           <img src="images/img_reviews_stars.png" alt="">
         </div>
-        <p class="review-item__text">{{static_77}}</p>
+        <p class="review-item__text">&quot;Insightful and worth every minute.&quot;</p>
       </div>
     </div>
     
+  </div>
+</section></article>
+<article class="rm-page" data-page="17" data-brick="disclaimer_v1"><section class="container">
+  <div class="disclaimer-container page-height">
+    <div class="disclaimer">
+      <div class="disclaimer__header">
+        <h2 class="disclaimer__title">Important Notice</h2>
+      </div>
+      <div class="disclaimer__body">
+        
+        <p class="disclaimer__text">This report is generated for general informational purposes only and does not constitute professional advice.</p>
+        
+        <p class="disclaimer__text">Consult a qualified professional before acting on any guidance contained herein.</p>
+        
+      </div>
+    </div>
   </div>
 </section></article>
 </body>
