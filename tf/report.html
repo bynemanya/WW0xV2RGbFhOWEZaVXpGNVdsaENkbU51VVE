@@ -1,1 +1,2952 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Report</title>
+<style>
+/* global */
+/* ---------- Font imports ----------
+   Loaded up-front so every brick can reference any face without its own @import.
+   Per-brick @imports may remain during Phase 9 migration; they're harmless duplicates. */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display:wght@400;700&family=DM+Serif+Display&family=Noto+Serif&family=Dosis&display=swap');
 
+/* ---------- Theme variable defaults ----------
+   Real values are injected per-report via an inline :root override block
+   appended after this file. The values here are the cosmicorion baseline so
+   opening a brick HTML file standalone still renders correctly. */
+:root {
+  --color-primary:                   #3f559d;
+  --color-primary-alt:               #2a7fd9;
+  --color-accent:                    #33b9de;
+  --color-accent-soft:               #e5eefe;
+  --color-gradient-start:            #33b9de;
+  --color-gradient-end:              #637bd2;
+
+  --color-text-primary:              #000;
+  --color-text-muted:                rgba(0, 0, 0, 0.8);
+  --color-text-inverse:              #fff;
+
+  --color-bg-page:                   #666;
+  --color-bg-container:              #fff;
+  --color-bg-highlight:              #abd4ff;
+
+  --color-disclaimer-bg:             #ffdcdc;
+  --color-disclaimer-title:          #ff2c24;
+  --color-disclaimer-border:         #ff433a;
+
+  --color-reviews-bg:                #f6f5f6;
+  --color-reviews-text:              #222163;
+  --color-reviews-button-primary-bg: #4387f9;
+  --color-reviews-button-secondary-border: #c5c7cb;
+  --color-reviews-avatar-border:     #d0ad67;
+  --color-reviews-prompt-bg:         #ebebeb;
+
+  --font-primary:                    'Open Sans', Arial, Helvetica, serif;
+  --font-display-serif:              'Playfair Display', 'Noto Serif', serif;
+  --font-display-alt:                'DM Serif Display', serif;
+
+  --fs-base: 16px;
+  --fs-xs:   12px;
+  --fs-sm:   14px;
+  --fs-md:   16px;
+  --fs-lg:   20px;
+  --fs-xl:   24px;
+  --fs-2xl:  32px;
+  --fs-3xl:  36px;
+  --fs-4xl:  42px;
+  --fs-5xl:  48px;
+
+  --space-1: 4px;   --space-2: 8px;   --space-3: 12px;  --space-4: 16px;
+  --space-6: 24px;  --space-8: 32px;  --space-10: 40px; --space-12: 48px;
+  --space-16: 64px;
+
+  --radius-sm: 4px;  --radius-md: 8px;  --radius-lg: 16px;
+  --radius-xl: 24px; --radius-pill: 9999px; --radius-full: 50%;
+}
+
+/* ---------- Reset ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: var(--fs-base); }
+
+body {
+  font-family: var(--font-primary);
+  line-height: 1.5;
+  background-color: var(--color-bg-page);
+  color: var(--color-text-primary);
+}
+
+/* ---------- A4 page container ---------- */
+.container {
+  max-width: 37.1875em;        /* ~595px @ 16px */
+  width: 100%;
+  margin: 1.25em auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-bg-container);
+  page-break-before: always;
+}
+
+.page-height { min-height: 842px; }
+
+/* ---------- Print ---------- */
+@media print {
+  @page { size: A4; margin: 0mm; }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body { font-family: var(--font-primary); }
+
+  .container {
+    width: 210mm;
+    height: 297mm;
+    max-width: none;
+    margin: 0 auto 10mm;
+    background-color: var(--color-bg-container);
+    page-break-before: always;
+    display: block;
+  }
+
+  .page-height { min-height: 297mm; }
+}
+
+/* ---------- Responsive base scale (kept from existing bricks) ---------- */
+@media screen and (max-width: 48em)   { html { font-size: 0.875em; } }
+@media screen and (max-width: 22.5em) { html { font-size: 0.77em;  } }
+
+/* brick: header_v1 */
+.content-page-headline {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat, no-repeat;
+    background-position: center 1.5em, center center;
+    background-size: 16.75em auto, cover;
+  }
+  .headline-box {
+    width: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 10%;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+    margin: 0 auto;
+    padding: 1.5em;
+    gap: 1.5em;
+  }
+  .headline-box__title {
+    color: var(--color-text-inverse, #fff);
+    text-align: center;
+    font-size: 2.25em;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+  }
+  .headline-box__text {
+    display: flex;
+    max-width: 32.4375em;
+    width: calc(100% - 3em);
+    margin: 0 auto;
+    padding: 1em 1.5em;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.556em;
+    border-radius: 0.222em;
+    background: linear-gradient(271deg, var(--color-gradient-start, #33b9de) 0.55%, var(--color-gradient-end, #637bd2) 115.44%);
+  }
+  .headline-box__text p {
+    color: var(--color-text-inverse, #fff);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1em;
+    line-height: normal;
+    text-align: left;
+  }
+  .headline-box__footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+  .headline-box__footer p {
+    color: var(--color-text-inverse, #fff);
+    text-align: center;
+    font-family: 'Open Sans';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16.8px;
+  }
+
+
+  @media print {
+    .content-page-headline {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      background-repeat: no-repeat, no-repeat;
+      background-position: center 24px, center center;
+      background-size: 268px auto, cover;
+    }
+    .headline-box {
+      width: 100%;
+      box-sizing: border-box;
+      position: absolute;
+      bottom: 8%;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      align-self: stretch;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .headline-box__title {
+      color: var(--color-text-inverse, #fff);
+      text-align: center;
+      font-size: 42px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+    .headline-box__text {
+      display: flex;
+      width: calc(100% - 48px);
+      max-width: none;
+      margin: 24px auto 0 auto;
+      padding: 16px 24px;
+      flex-direction: column;
+      justify-content: center;
+      border-radius: 3.555px;
+      background: linear-gradient(271deg, var(--color-gradient-start, #33b9de) 0.55%, var(--color-gradient-end, #637bd2) 115.44%);
+    }
+    .headline-box__text p {
+      color: var(--color-text-inverse, #fff);
+      font-style: normal;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 30px;
+      padding: 4.4px 0;
+    }
+    .headline-box__footer {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 0;
+      text-align: center;
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
+    .headline-box__footer p {
+      color: var(--color-text-inverse, #fff);
+      text-align: center;
+      font-family: 'Open Sans';
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 22.4px;
+    }
+  }
+
+/* brick: Table_of_contents_v1 */
+.contents-container {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+    border: 2.5em solid var(--color-primary, #3f559d);
+  }
+  .contents-container__inner {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    padding: 2.5em;
+    justify-content: center;
+    align-items: center;
+    gap: 3em;
+    background: var(--color-bg-container, #fff);
+  }
+  .contents-text {
+    color: var(--color-text-primary, #000);
+    text-align: center;
+    font-size: 2em;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+  .contents-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+  }
+  .contents-item {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+  }
+  .contents-item__number {
+    width: 2.875em;
+    height: 2.75em;
+    border-radius: 0.25em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary, #3f559d);
+    font-size: 1em;
+    font-weight: 700;
+    flex-shrink: 0;
+    background: var(--color-accent-soft, #e5eefe);
+  }
+  .contents-item__title {
+    color: var(--color-text-muted, rgba(0, 0, 0, 0.8));
+    font-size: 1em;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+
+  @media print {
+    .contents-container {
+      height: calc(297mm - 80px);
+      display: flex;
+      padding: 40px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      align-self: stretch;
+      background: var(--color-primary, #3f559d);
+      border: none;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      gap: 0;
+    }
+    .contents-container__inner {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      align-self: stretch;
+      background: var(--color-bg-container, #fff);
+      padding: 0;
+      gap: 0;
+    }
+    .contents-text {
+      color: var(--color-text-primary, #000);
+      text-align: center;
+      font-size: 38px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 48px;
+    }
+    .contents-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      width: calc(100% - 80px);
+      padding: 40px;
+      gap: 0;
+      margin: 0;
+    }
+    .contents-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 32px;
+      gap: 0;
+    }
+    .contents-item:last-child {
+      margin-bottom: 0;
+    }
+    .contents-item__number {
+      width: 46px;
+      height: 44px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary, #3f559d);
+      font-size: 18px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-right: 16px;
+      background: var(--color-accent-soft, #e5eefe);
+    }
+    .contents-item__title {
+      color: var(--color-text-muted, rgba(0, 0, 0, 0.8));
+      font-size: 22px;
+      line-height: 31px;
+      margin: 0;
+    }
+  }
+
+/* brick: quote_v1 */
+.quote-page.quote-page--v1 {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2.5em;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, var(--color-quote-gradient-start, #1b467e) 0%, var(--color-quote-gradient-end, #061b39) 100%);
+  }
+  .quote-wrapper-inner {
+    display: flex;
+    width: 100%;
+    max-width: 30em;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+  }
+  .quote-wrapper-inner p {
+    color: var(--color-text-inverse, #fff);
+    text-align: center;
+    font-size: 1.5em;
+    font-style: italic;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+  @media screen and (max-width: 48em) {
+    .quote-wrapper-inner p {
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 44.8px;
+    }
+  }
+
+
+  @media print {
+    .quote-page.quote-page--v1 {
+      display: flex;
+      width: 210mm;
+      height: 297mm;
+      box-sizing: border-box;
+      padding: 40px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(180deg, var(--color-quote-gradient-start, #1b467e) 0%, var(--color-quote-gradient-end, #061b39) 100%);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .quote-wrapper-inner {
+      max-width: 170mm;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .quote-wrapper-inner p {
+      color: var(--color-text-inverse, #fff);
+      text-align: center;
+      font-size: 28px;
+      font-style: italic;
+      font-weight: 700;
+      line-height: 42px;
+    }
+  }
+
+/* brick: themed_v1 */
+.themed-section {
+    display: flex;
+    padding: 0 2.5em 2.5em;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2.5em;
+    align-self: stretch;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--color-bg-container, #fff);
+  }
+  .themed-section__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    align-self: stretch;
+    position: relative;
+    z-index: 3;
+  }
+  .themed-section__number-box {
+    width: 4.375em;
+    height: 7em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background-color: var(--color-primary, #3f559d);
+  }
+  .themed-section__number {
+    color: var(--color-text-inverse, #fff);
+    font-size: 3em;
+    font-weight: 700;
+    font-family: 'Open Sans', serif;
+  }
+  .themed-section__decoration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 61px;
+    width: 100%;
+  }
+  .themed-section__decoration img {
+    max-width: 61px;
+    width: 100%;
+  }
+  .themed-section__title {
+    color: var(--color-text-primary, #000);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 2em;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 1.3;
+    text-align: left;
+  }
+
+
+  @media print {
+    .themed-section {
+      display: flex;
+      padding: 0px 40px 40px 40px;
+      flex-direction: column;
+      align-items: center;
+      align-self: stretch;
+      background-color: var(--color-bg-container, #fff);
+    }
+    .themed-section__header {
+      overflow: auto;
+      height: 112px;
+      flex-shrink: 0;
+      align-self: stretch;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 3;
+    }
+    .themed-section--v1 .themed-section__header {
+      padding: 0;
+    }
+    .themed-section__number-box {
+      float: left;
+      width: 70px;
+      height: 112px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background-color: var(--color-primary, #3f559d);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .themed-section__number {
+      color: var(--color-text-inverse, #fff);
+      font-size: 48px;
+      font-weight: 700;
+    }
+    .themed-section__decoration {
+      float: right;
+      width: 61.91px;
+      height: 112px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .themed-section__decoration img {
+      display: block;
+      width: 61px;
+    }
+    .themed-section__title {
+      color: var(--color-text-primary, #000);
+      font-family: 'Open Sans', sans-serif;
+      font-size: 36px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 48px;
+      margin-bottom: 40px;
+    }
+  }
+
+/* brick: _body */
+.chapter-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2em;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--color-bg-container, #fff);
+  }
+  .chapter-body__text-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: var(--space-6, 1.5em);
+    width: 100%;
+    min-width: 0;
+  }
+  .chapter-body__paragraph {
+    color: var(--color-text-muted, rgba(0, 0, 0, 0.8));
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: var(--fs-sm, 0.875em);
+    line-height: 1.6;
+    text-align: left;
+    width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .chapter-body__highlight-box {
+    display: flex;
+    padding: var(--space-6, 1.5em);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-4, 1em);
+    background: var(--color-bg-highlight, rgb(171, 212, 255));
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .chapter-body__highlight-box-paragraph {
+    color: var(--color-text-primary, #000);
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: var(--fs-sm, 0.875em);
+    line-height: 1.6;
+    width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .chapter-body__separator {
+    display: block;
+    max-width: 12.5625em;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    align-self: center;
+  }
+  .chapter-body__styled-box {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4, 1em);
+    padding: var(--space-6, 1.5em);
+    background: var(--color-accent-soft, #e5eefe);
+    border-radius: var(--radius-md, 8px);
+    color: var(--color-text-primary, #000);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .chapter-body__styled-box-paragraph,
+  .chapter-body__styled-box-subheadline {
+    overflow-wrap: anywhere;
+  }
+  .chapter-body__styled-box-subheadline {
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: var(--fs-xl, 1.5em);
+    font-weight: 800;
+    line-height: 1.3;
+  }
+  .chapter-body__styled-box-paragraph {
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: var(--fs-sm, 0.875em);
+    line-height: 1.6;
+  }
+  .chapter-body__styled-box-list {
+    list-style: disc;
+    padding-left: var(--space-6, 1.5em);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2, 0.5em);
+  }
+
+  /* colored_box — different-colored-boxes.png */
+  .chapter-body__colored-box {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4, 1em);
+    padding: var(--space-6, 1.5em);
+    background: var(--color-accent-soft, #f3e8ff);
+    color: var(--color-text-primary, #000);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .chapter-body__colored-box-subheadline {
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: 1em;
+    font-weight: 700;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+  .chapter-body__colored-box-paragraph {
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: var(--fs-sm, 0.875em);
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+
+  /* bordered_box — left-border-box.png */
+  .chapter-body__bordered-box {
+    border-left: 3px solid var(--color-accent, #1d4cb3);
+    padding: 0 0 0 1em;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .chapter-body__bordered-box-paragraph {
+    color: var(--color-text-muted, rgba(0, 0, 0, 0.8));
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: var(--fs-sm, 0.875em);
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+
+  /* centered_quote — centered-quote-paragraph.png */
+  .chapter-body__centered-quote {
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-style: italic;
+    font-size: 1em;
+    line-height: 1.5;
+    text-align: center;
+    max-width: 28em;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-wrap: anywhere;
+  }
+
+  /* titled_box — background-title-box(+imageIcon).png */
+  .chapter-body__titled-box {
+    border: 1px solid var(--color-border, #e5e7eb);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--color-bg-container, #fff);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .chapter-body__titled-box-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.625em;
+    padding: 1em 1.5em;
+    background: var(--color-accent-soft, #e5eefe);
+  }
+  .chapter-body__titled-box-icon {
+    width: 1.5em;
+    height: 1.5em;
+    flex: 0 0 auto;
+    object-fit: contain;
+  }
+  /* When the icon slot is empty, the placeholder leaves src="images/"; hide the broken img. */
+  .chapter-body__titled-box-icon[src="images/"] { display: none; }
+  .chapter-body__titled-box-title {
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: 1em;
+    font-weight: 700;
+    color: var(--color-text-primary, #000);
+    overflow-wrap: anywhere;
+  }
+  .chapter-body__titled-box-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 1em 1.5em 1.5em;
+  }
+  .chapter-body__titled-box-paragraph {
+    color: var(--color-text-muted, rgba(0, 0, 0, 0.8));
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: var(--fs-sm, 0.875em);
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+  .chapter-body__titled-box-list {
+    list-style: disc;
+    padding-left: var(--space-6, 1.5em);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2, 0.5em);
+    color: var(--color-text-muted, rgba(0, 0, 0, 0.8));
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: var(--fs-sm, 0.875em);
+    line-height: 1.6;
+  }
+  .chapter-body__titled-box-separator {
+    display: block;
+    max-width: 12.5625em;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  /* benefit_list — list-benefit-box.png */
+  .chapter-body__benefit-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+    width: 100%;
+    box-sizing: border-box;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .chapter-body__benefit-list-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75em;
+    padding: 0.75em 1em;
+    background: var(--color-accent-soft, #ffd9e6);
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+  .chapter-body__benefit-list-icon {
+    width: 1.25em;
+    height: 1.25em;
+    flex: 0 0 auto;
+    color: var(--color-accent, #e91e63);
+  }
+  .chapter-body__benefit-list-label {
+    color: var(--color-text-primary, #000);
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: var(--fs-sm, 0.875em);
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  @media print {
+    /* WeasyPrint drops `gap` on flex containers; re-express as margin between adjacent siblings. */
+    .chapter-body { gap: 0; }
+    .chapter-body > * + * { margin-top: 2em; }
+    .blank-chapter .chapter-body {
+      margin: 0 auto;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .chapter-body__text-block { gap: 0; }
+    .chapter-body__text-block > * + * { margin-top: var(--space-6, 1.5em); }
+    .chapter-body__paragraph {
+      font-size: 20px;
+      line-height: 29px;
+    }
+
+    .chapter-body__highlight-box { gap: 0; }
+    .chapter-body__highlight-box > * + * { margin-top: var(--space-4, 1em); }
+    .chapter-body__highlight-box-paragraph {
+      font-size: 20px;
+      line-height: 29px;
+    }
+
+    .chapter-body__styled-box { gap: 0; }
+    .chapter-body__styled-box > * + * { margin-top: var(--space-4, 1em); }
+
+    .chapter-body__styled-box-list { gap: 0; }
+    .chapter-body__styled-box-list > li + li { margin-top: var(--space-2, 0.5em); }
+    .chapter-body__styled-box-subheadline,
+    .chapter-body__styled-box-paragraph {
+      font-size: 20px;
+      line-height: 29px;
+    }
+    .chapter-body__styled-box-list > li {
+      font-size: 18px;
+      line-height: 27px;
+    }
+
+    .chapter-body__separator {
+      display: block;
+      max-width: 201px;
+      width: 100%;
+      margin: 16px auto;
+    }
+
+    /* colored_box */
+    .chapter-body__colored-box { gap: 0; }
+    .chapter-body__colored-box > * + * { margin-top: var(--space-4, 1em); }
+    .chapter-body__colored-box-subheadline {
+      font-size: 20px;
+      line-height: 29px;
+    }
+    .chapter-body__colored-box-paragraph {
+      font-size: 20px;
+      line-height: 29px;
+    }
+
+    /* bordered_box */
+    .chapter-body__bordered-box-paragraph {
+      font-size: 20px;
+      line-height: 29px;
+    }
+
+    /* centered_quote */
+    .chapter-body__centered-quote {
+      font-size: 18px;
+      line-height: 27px;
+      max-width: 420px;
+    }
+
+    /* titled_box */
+    .chapter-body__titled-box-header { gap: 0; }
+    .chapter-body__titled-box-header > * + * { margin-left: 0.625em; }
+    .chapter-body__titled-box-body { gap: 0; }
+    .chapter-body__titled-box-body > * + * { margin-top: 1em; }
+    .chapter-body__titled-box-list { gap: 0; }
+    .chapter-body__titled-box-list > li + li { margin-top: var(--space-2, 0.5em); }
+    .chapter-body__titled-box-title {
+      font-size: 20px;
+      line-height: 29px;
+    }
+    .chapter-body__titled-box-paragraph {
+      font-size: 20px;
+      line-height: 29px;
+    }
+    .chapter-body__titled-box-list > li {
+      font-size: 18px;
+      line-height: 27px;
+    }
+    .chapter-body__titled-box-separator {
+      max-width: 201px;
+      margin: 16px auto;
+    }
+
+    /* benefit_list — float-based two-column layout for WeasyPrint */
+    .chapter-body__benefit-list {
+      display: block;
+      gap: 0;
+      overflow: hidden; /* clear the floats so the next block doesn't wrap */
+    }
+    .chapter-body__benefit-list-item {
+      display: block;
+      float: left;
+      width: 48%;
+      margin: 0 4% 1em 0;
+      gap: 0;
+    }
+    .chapter-body__benefit-list-item:nth-child(2n) {
+      margin-right: 0;
+    }
+    .chapter-body__benefit-list-item > * + * { margin-left: 0.75em; }
+    .chapter-body__benefit-list-icon {
+      width: 18px;
+      height: 18px;
+      vertical-align: middle;
+    }
+    .chapter-body__benefit-list-label {
+      font-size: 18px;
+      line-height: 27px;
+      vertical-align: middle;
+    }
+  }
+
+/* brick: blank */
+.blank-chapter {
+    display: flex;
+    padding: 2.5em;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--color-bg-container, #fff);
+  }
+
+/* brick: themed_v3 */
+.themed-section {
+    display: flex;
+    padding: 0 2.5em 2.5em;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5em;
+    align-self: stretch;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--color-bg-container, #fff);
+  }
+  .themed-section__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    align-self: stretch;
+    position: relative;
+    z-index: 3;
+  }
+  .themed-section__number-box {
+    width: 4.375em;
+    height: 7em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background-color: var(--color-primary, #3f559d);
+  }
+  .themed-section__number {
+    color: var(--color-text-inverse, #fff);
+    font-size: 3em;
+    font-weight: 700;
+    font-family: 'Open Sans', serif;
+  }
+  .themed-section__decoration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 61px;
+    width: 100%;
+  }
+  .themed-section__decoration img {
+    max-width: 61px;
+    width: 100%;
+  }
+  .themed-section__title {
+    color: var(--color-text-primary, #000);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 2em;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 1.3;
+    text-align: left;
+  }
+  .themed-section__page-frame {
+    position: relative;
+    width: 100%;
+  }
+  .bottom-image {
+    max-width: 595px;
+    width: 100%;
+    flex-shrink: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+
+  @media print {
+    .themed-section {
+      display: flex;
+      padding: 0px 40px 40px 40px;
+      flex-direction: column;
+      align-items: center;
+      align-self: stretch;
+      background-color: var(--color-bg-container, #fff);
+    }
+    .themed-section__header {
+      overflow: auto;
+      height: 112px;
+      flex-shrink: 0;
+      align-self: stretch;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 3;
+    }
+    .themed-section--v3 .themed-section__header {
+      padding: 0;
+    }
+    .themed-section__number-box {
+      float: left;
+      width: 70px;
+      height: 112px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background-color: var(--color-primary, #3f559d);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .themed-section__number {
+      color: var(--color-text-inverse, #fff);
+      font-size: 48px;
+      font-weight: 700;
+    }
+    .themed-section__decoration {
+      float: right;
+      width: 61.91px;
+      height: 112px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .themed-section__decoration img {
+      display: block;
+      width: 61px;
+    }
+    .themed-section__title {
+      color: var(--color-text-primary, #000);
+      font-family: 'Open Sans', sans-serif;
+      font-size: 36px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 48px;
+      margin-bottom: 40px;
+      text-align: left;
+    }
+    .themed-section__page-frame {
+      position: static;
+      width: 100%;
+    }
+    .bottom-image {
+      width: 210mm;
+      max-width: none;
+      flex-shrink: 0;
+      position: absolute;
+      bottom: 0px;
+      left: 0;
+      right: 0;
+    }
+  }
+
+/* brick: themed_v2 */
+.themed-section {
+    display: flex;
+    padding: 0 2.5em 2.5em;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5em;
+    align-self: stretch;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--color-bg-container, #fff);
+  }
+  .themed-section__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    align-self: stretch;
+    position: relative;
+    z-index: 3;
+  }
+  .themed-section__number-box {
+    width: 4.375em;
+    height: 7em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background-color: var(--color-primary, #3f559d);
+  }
+  .themed-section__number {
+    color: var(--color-text-inverse, #fff);
+    font-size: 3em;
+    font-weight: 700;
+    font-family: 'Open Sans', serif;
+  }
+  .themed-section__decoration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 61px;
+    width: 100%;
+  }
+  .themed-section__decoration img {
+    max-width: 61px;
+    width: 100%;
+  }
+  .section-02 {
+    min-height: 842px;
+    gap: 40px;
+    background: var(--color-primary-alt, #2a7fd9);
+    position: relative;
+    z-index: 2;
+    padding: 0 2.5em 2.5em;
+  }
+  .headline-img_02 {
+    max-width: 595px;
+    width: 100%;
+    min-height: 678px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    object-fit: cover;
+  }
+  .box-content__middle {
+    display: flex;
+    max-width: 515px;
+    width: calc(100% - 80px);
+    padding: 40px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 40px;
+    background: var(--color-bg-container, #fff);
+    z-index: 4;
+    margin: 0 auto;
+  }
+  .box-content__middle h1 {
+    color: var(--color-text-primary, #000);
+    line-height: 1.3;
+    font-size: 2em;
+    font-weight: 800;
+    padding-top: 10px;
+    text-align: center;
+  }
+  .box-content__middle p {
+    color: var(--color-text-primary, #000);
+    font-size: 0.875em;
+    line-height: 1.6;
+  }
+
+
+  @media print {
+    .section-02 {
+      height: 297mm;
+      background: var(--color-primary-alt, #2a7fd9);
+      position: relative;
+      z-index: 2;
+      box-sizing: border-box;
+      padding: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .headline-img_02 {
+      width: 100%;
+      min-height: 678px;
+      max-width: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      object-fit: cover;
+    }
+    .themed-section__header {
+      overflow: auto;
+      height: 112px;
+      flex-shrink: 0;
+      align-self: stretch;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 3;
+      padding: 0 40px;
+    }
+    .themed-section--v2 .themed-section__header {
+      padding: 0;
+    }
+    .themed-section.themed-section--v2 {
+      background-color: var(--color-primary-alt, #2a7fd9);
+    }
+    .themed-section__number-box {
+      float: left;
+      width: 70px;
+      height: 112px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background-color: var(--color-primary, #3f559d);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .themed-section__number {
+      color: var(--color-text-inverse, #fff);
+      font-size: 48px;
+      font-weight: 700;
+    }
+    .themed-section__decoration {
+      float: right;
+      width: 61.91px;
+      height: 112px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .themed-section__decoration img {
+      display: block;
+      width: 61px;
+    }
+    .box-content__middle {
+      display: flex;
+      width: 170mm;
+      max-width: 100%;
+      padding: 40px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 20mm;
+      background: var(--color-bg-container, #fff);
+      z-index: 4;
+      margin: 0 auto;
+    }
+    .box-content__middle h1 {
+      color: var(--color-text-primary, #000);
+      font-size: 36px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 48px;
+      padding: 0 0 32px 0;
+      text-align: center;
+    }
+    .box-content__middle p {
+      color: var(--color-text-primary, #000);
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 29px;
+    }
+  }
+
+/* brick: themed_v4 */
+.themed-section {
+    display: flex;
+    padding: 0 2.5em 2.5em;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5em;
+    align-self: stretch;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--color-bg-container, #fff);
+  }
+  .themed-section__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    align-self: stretch;
+    position: relative;
+    z-index: 3;
+  }
+  .themed-section__number-box {
+    width: 4.375em;
+    height: 7em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background-color: var(--color-primary, #3f559d);
+  }
+  .themed-section__number {
+    color: var(--color-text-inverse, #fff);
+    font-size: 3em;
+    font-weight: 700;
+    font-family: 'Open Sans', serif;
+  }
+  .themed-section__title {
+    color: var(--color-text-primary, #000);
+    font-family: 'Open Sans', serif;
+    font-size: 2em;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 1.3;
+    text-align: left;
+    align-self: stretch;
+  }
+
+
+  @media print {
+    .themed-section {
+      display: flex;
+      padding: 0px 40px 40px 40px;
+      flex-direction: column;
+      align-items: center;
+      align-self: stretch;
+      background-color: var(--color-bg-container, #fff);
+    }
+    .themed-section__header {
+      overflow: auto;
+      height: 112px;
+      flex-shrink: 0;
+      align-self: stretch;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 3;
+    }
+    .themed-section--v4 .themed-section__header {
+      padding: 0;
+    }
+    .themed-section__number-box {
+      float: left;
+      width: 70px;
+      height: 112px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background-color: var(--color-primary, #3f559d);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .themed-section__number {
+      color: var(--color-text-inverse, #fff);
+      font-size: 48px;
+      font-weight: 700;
+    }
+    .themed-section__title {
+      color: var(--color-text-primary, #000);
+      font-family: 'Open Sans', serif;
+      font-size: 36px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 48px;
+      margin-bottom: 40px;
+    }
+  }
+
+/* brick: quote_v2 */
+.quote-page.quote-page--v2 {
+    position: relative;
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2.5em;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: var(--color-quote-bg, #061b39);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-origin: border-box;
+    background-clip: border-box;
+  }
+  .quote-wrapper-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    width: 100%;
+    max-width: 30em;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+  }
+  .quote-wrapper-inner p {
+    color: var(--color-text-inverse, #fff);
+    text-align: center;
+    font-size: 1.5em;
+    font-style: italic;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+  @media screen and (max-width: 48em) {
+    .quote-wrapper-inner p {
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 44.8px;
+    }
+  }
+
+
+  @media print {
+    .quote-page.quote-page--v2 {
+      position: relative;
+      display: flex;
+      width: 210mm;
+      height: 297mm;
+      box-sizing: border-box;
+      padding: 40px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      background-color: var(--color-quote-bg, #061b39);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-origin: border-box;
+      background-clip: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .quote-wrapper-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 170mm;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .quote-wrapper-inner p {
+      color: var(--color-text-inverse, #fff);
+      text-align: center;
+      font-size: 28px;
+      font-style: italic;
+      font-weight: 700;
+      line-height: 42px;
+    }
+  }
+
+/* brick: reviews_v1 */
+.reviews-box {
+    font-family: var(--font-primary, 'Open Sans', serif);
+  }
+  .container.reviews-box {
+    background: var(--color-reviews-bg, #f6f5f6);
+  }
+  .reviews-container {
+    display: flex;
+    padding: 3em;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    width: 100%;
+    background: var(--color-reviews-bg, #f6f5f6);
+  }
+  .rating-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    align-self: stretch;
+    margin: 0;
+    gap: 4px;
+  }
+  .rating-stars {
+    display: flex;
+    max-width: 28.75em;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5em;
+    align-self: stretch;
+  }
+  .reviews-title {
+    color: var(--color-reviews-text, #222163);
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: 1.25em;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+  .rating-number-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .rating-number {
+    color: var(--color-reviews-text, #222163);
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: 1.125em;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .rating-number-container img {
+    max-width: 120px;
+    display: block;
+  }
+  .reviews-avatars-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  .reviews-avatars {
+    display: flex;
+    align-items: center;
+  }
+  .reviews-avatar {
+    width: 1.429em;
+    height: 1.429em;
+    border-radius: var(--radius-full, 50%);
+    border: 0.056em solid var(--color-reviews-avatar-border, #d0ad67);
+    background: var(--color-bg-container, #fff);
+    margin-left: -0.3125em;
+  }
+  .reviews-avatar:first-child { margin-left: 0; }
+  .recommended-by {
+    color: var(--color-reviews-text, #222163);
+    text-align: right;
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: 0.625em;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  .review-item {
+    display: flex;
+    gap: 1em;
+    align-self: stretch;
+    align-items: flex-start;
+    border-radius: 1em;
+    background: var(--color-bg-container, #fff);
+    padding: 1em;
+    margin-bottom: 1em;
+  }
+  .review-item:last-child { margin-bottom: 0; }
+  .review-item__avatar img {
+    width: 3em;
+    height: 3em;
+    border-radius: 5.071em;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+  .review-item__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    flex: 1 0 0;
+  }
+  .review-item__info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    align-self: stretch;
+  }
+  .review-item__info img {
+    width: 100%;
+    max-width: 80px;
+    display: block;
+  }
+  .review-item__name {
+    color: var(--color-reviews-text, #222163);
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: 1em;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+  .review-item__date {
+    color: var(--color-reviews-text, #222163);
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: 1em;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+  .review-item__text {
+    color: var(--color-reviews-text, #222163);
+    font-family: var(--font-primary, 'Open Sans', serif);
+    font-size: 0.875em;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+
+  @media print {
+    .container.reviews-box {
+      background: var(--color-reviews-bg, #f6f5f6);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .reviews-container {
+      display: flex;
+      padding: 24px;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      width: 100%;
+      min-height: 297mm;
+      box-sizing: border-box;
+      background: var(--color-reviews-bg, #f6f5f6);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .rating-summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      align-self: stretch;
+      margin-bottom: 16px;
+      gap: 0;
+    }
+    .reviews-title {
+      color: var(--color-reviews-text, #222163);
+      font-family: var(--font-primary, 'Open Sans', serif);
+      font-size: 24px;
+      font-weight: 700;
+      font-style: normal;
+      line-height: 34px;
+    }
+    .rating-number-container {
+      display: block;
+      margin-top: 8px;
+      text-align: left;
+    }
+    .rating-number {
+      color: var(--color-reviews-text, #222163);
+      font-family: var(--font-primary, 'Open Sans', serif);
+      font-size: 20px;
+      font-weight: 600;
+      font-style: normal;
+      line-height: 28px;
+      display: inline-block;
+      vertical-align: middle;
+      padding-right: 8px;
+    }
+    .rating-number-container img {
+      display: inline-block;
+      max-width: 31.75mm;
+      width: auto;
+      vertical-align: middle;
+    }
+    .rating-stars {
+      display: flex;
+      max-width: none;
+      width: 133mm;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      align-self: stretch;
+    }
+    .reviews-avatars-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 0;
+      align-self: stretch;
+    }
+    .reviews-avatars {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .reviews-avatar {
+      width: 22.862px;
+      height: 22.862px;
+      border-radius: 124px;
+      border: 0.892px solid var(--color-reviews-avatar-border, #d0ad67);
+      background: var(--color-bg-container, #fff);
+      margin-left: -5px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .reviews-avatar:first-child { margin-left: 0; }
+    .recommended-by {
+      color: var(--color-reviews-text, #222163);
+      text-align: right;
+      font-family: var(--font-primary, 'Open Sans', serif);
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      text-transform: uppercase;
+      margin-top: 8px;
+      padding: 0;
+    }
+    .review-item {
+      display: flex;
+      gap: 0;
+      align-self: stretch;
+      align-items: flex-start;
+      border-radius: 16px;
+      background: var(--color-bg-container, #fff);
+      padding: 16px;
+      margin-bottom: 16px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .review-item:last-child { margin-bottom: 0; }
+    .review-item__avatar img {
+      display: flex;
+      width: 48px;
+      height: 48px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 81.136px;
+      aspect-ratio: 1 / 1;
+      margin-right: 16px;
+      object-fit: cover;
+    }
+    .review-item__content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      flex: 1 0 0;
+    }
+    .review-item__info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      margin: 4px;
+      align-self: stretch;
+    }
+    .review-item__info img {
+      width: 100%;
+      max-width: 80px;
+      display: block;
+    }
+    .review-item__name {
+      color: var(--color-reviews-text, #222163);
+      font-family: var(--font-primary, 'Open Sans', serif);
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+    .review-item__date {
+      color: var(--color-reviews-text, #222163);
+      font-family: var(--font-primary, 'Open Sans', serif);
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 21px;
+      padding: 2px 0;
+    }
+    .review-item__text {
+      color: var(--color-reviews-text, #222163);
+      font-family: var(--font-primary, 'Open Sans', serif);
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 30px;
+      margin-top: 8px;
+      padding: 0;
+    }
+  }
+
+/* brick: disclaimer_v1 */
+.disclaimer-container {
+    display: flex;
+    padding: 3em 2.5em;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 4em;
+    background: var(--color-bg-container, #fff);
+    align-self: stretch;
+  }
+  .disclaimer {
+    display: flex;
+    padding: 2.5em;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5em;
+    align-self: stretch;
+    border-radius: 1.5em;
+    background: var(--color-disclaimer-bg, #ffdcdc);
+  }
+  .disclaimer__header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .disclaimer__title {
+    position: relative;
+    padding: 0 30px;
+    color: var(--color-disclaimer-title, #ff2c24);
+    font-family: var(--font-primary, 'Open Sans', serif);
+    text-align: center;
+    font-size: 1.5625em;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .disclaimer__title::before,
+  .disclaimer__title::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    background-image: url(images/disclaimer_icon.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .disclaimer__title::before { left: 0; }
+  .disclaimer__title::after  { right: 0; }
+  .disclaimer__body {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4, 16px);
+    border-top: 0.0625em solid var(--color-disclaimer-border, #ff433a);
+    border-bottom: 0.0625em solid var(--color-disclaimer-border, #ff433a);
+    padding: 1.5em 0;
+    color: var(--color-text-muted, rgba(0, 0, 0, 0.7));
+    font-size: 0.875em;
+    font-weight: 400;
+    line-height: 1.7;
+  }
+  .disclaimer__text {
+    font-family: var(--font-primary, 'Open Sans', serif);
+    margin: 0;
+  }
+
+
+  @media print {
+    .disclaimer-container {
+      display: flex;
+      padding: 48px 40px;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0;
+      background: var(--color-bg-container, #fff);
+      align-self: stretch;
+    }
+    .disclaimer {
+      display: flex;
+      padding: 40px;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      align-self: stretch;
+      border-radius: 24px;
+      background: var(--color-disclaimer-bg, #ffdcdc);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .disclaimer__header {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 0 24px 0;
+    }
+    .disclaimer__title {
+      position: relative;
+      padding: 0 30px;
+      color: var(--color-disclaimer-title, #ff2c24);
+      font-family: var(--font-primary, 'Open Sans', serif);
+      text-align: center;
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 34px;
+    }
+    .disclaimer__title::before,
+    .disclaimer__title::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 24px;
+      height: 24px;
+      background-image: url(images/disclaimer_icon.png);
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .disclaimer__title::before { left: 0; }
+    .disclaimer__title::after  { right: 0; }
+    .disclaimer__body {
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-top: 1px solid var(--color-disclaimer-border, #ff433a);
+      border-bottom: 1px solid var(--color-disclaimer-border, #ff433a);
+      padding: 24px 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .disclaimer__text {
+      color: var(--color-text-muted, rgba(0, 0, 0, 0.7));
+      font-family: var(--font-primary, 'Open Sans', serif);
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 30px;
+      margin: 24px 0 0 0;
+    }
+    .disclaimer__body .disclaimer__text:first-child {
+      margin-top: 0;
+    }
+  }
+
+/* theme */
+:root {
+  --color-primary: #3f559d;
+  --color-primary-alt: #2a7fd9;
+  --color-accent: #33b9de;
+  --color-accent-soft: #e5eefe;
+  --color-gradient-start: #33b9de;
+  --color-gradient-end: #637bd2;
+  --color-text-primary: #000000;
+  --color-text-muted: rgba(0, 0, 0, 0.8);
+  --color-text-inverse: #ffffff;
+  --color-bg-page: #666666;
+  --color-bg-container: #ffffff;
+  --color-bg-highlight: #abd4ff;
+  --color-disclaimer-bg: #ffdcdc;
+  --color-disclaimer-title: #ff2c24;
+  --color-disclaimer-border: #ff433a;
+  --color-reviews-bg: #f6f5f6;
+  --color-reviews-text: #222163;
+  --color-reviews-button-primary-bg: #4387f9;
+  --color-reviews-button-secondary-border: #c5c7cb;
+  --color-reviews-avatar-border: #d0ad67;
+  --color-reviews-prompt-bg: #ebebeb;
+  --color-header-v2-bg-start: #1d4cb3;
+  --color-header-cover-card-bg: #314685;
+  --color-header-info-panel-bg: #15388a;
+  --color-bg-page-cream: #fffcf8;
+  --color-quote-gradient-start: #1b467e;
+  --color-quote-gradient-end: #061b39;
+  --color-quote-bg: #061b39;
+  --font-primary: 'Open Sans', Arial, Helvetica, serif;
+  --font-display-serif: 'Playfair Display', 'Noto Serif', serif;
+  --font-display-alt: 'DM Serif Display', serif;
+  --fs-base: 16px;
+  --fs-xs: 12px;
+  --fs-sm: 14px;
+  --fs-md: 16px;
+  --fs-lg: 20px;
+  --fs-xl: 24px;
+  --fs-2xl: 32px;
+  --fs-3xl: 36px;
+  --fs-4xl: 42px;
+  --fs-5xl: 48px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 9999px;
+  --radius-full: 50%;
+}
+</style>
+</head>
+<body>
+<article class="rm-page" data-page="1" data-brick="header_v1"><section class="container">
+  <div class="content-page-headline page-height" style="background-image: url(images/cosmicorion_logo_white.png), url(images/default_header_bg.jpg);">
+    <div class="headline-box">
+      <h1 class="headline-box__title">Your Twin Flame Mirror Reading</h1>
+      <div class="headline-box__text">
+        
+        <p>This isn't a horoscope. It isn't a prediction. It's a careful look at the soul-pattern you came in carrying, and the shape of the soul built to mirror it.</p>
+        
+        <p>We'll move through it together, page by page, until what you've been sensing has a name.</p>
+        
+      </div>
+    </div>
+
+    <div class="headline-box__footer">
+      
+      <p>Mirror reading for #name#, born on #birthdate#</p>
+      
+      <p>Captured #current_date#, #current_time#</p>
+      
+    </div>
+  </div>
+</section></article>
+<article class="rm-page" data-page="2" data-brick="Table_of_contents_v1"><section class="container">
+  <div class="contents-container page-height">
+    <div class="contents-container__inner">
+      <h1 class="contents-text">Contents</h1>
+      <ul class="contents-list">
+        
+        <li class="contents-item">
+          <span class="contents-item__number">1</span>
+          <p class="contents-item__title">Welcome to Your Mirror Reading</p>
+        </li>
+        
+        <li class="contents-item">
+          <span class="contents-item__number">2</span>
+          <p class="contents-item__title">Your Twin Flame Archetype &amp; Sketch</p>
+        </li>
+        
+        <li class="contents-item">
+          <span class="contents-item__number">3</span>
+          <p class="contents-item__title">The Mirror Profile</p>
+        </li>
+        
+        <li class="contents-item">
+          <span class="contents-item__number">4</span>
+          <p class="contents-item__title">Your 5 Recognition Signs</p>
+        </li>
+        
+        <li class="contents-item">
+          <span class="contents-item__number">5</span>
+          <p class="contents-item__title">The Block &amp; The Soul Work</p>
+        </li>
+        
+        <li class="contents-item">
+          <span class="contents-item__number">6</span>
+          <p class="contents-item__title">Hidden Strength, Two Futures &amp; Your Mantra</p>
+        </li>
+        
+        <li class="contents-item">
+          <span class="contents-item__number">7</span>
+          <p class="contents-item__title">Action Plan + Final Thoughts</p>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</section></article>
+<article class="rm-page" data-page="3" data-brick="quote_v1"><section class="container">
+  <div class="quote-page quote-page--v1 page-height">
+    <div class="quote-wrapper-inner">
+      <p>"Recognition doesn't have to come all at once — it lands the moment your soul stops performing and starts listening."</p>
+    </div>
+  </div>
+</section></article>
+<article class="rm-page" data-page="4" data-brick="themed_v1"><section class="container">
+  <div class="themed-section themed-section--v1 page-height">
+    <div class="themed-section__header">
+      <div class="themed-section__number-box">
+        <span class="themed-section__number">2</span>
+      </div>
+      <div class="themed-section__decoration">
+        <img src="images/default_header_decoration.png" alt="header decoration" />
+      </div>
+    </div>
+    <h1 class="themed-section__title">Your Twin Flame Archetype &amp; Sketch</h1>
+    <!-- Shared body region for Chapter_starter bricks.
+     Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
+     The block region is heterogeneous + ordered: builder strips these prototypes,
+     scans the page's markdown blocks, and re-emits cloned copies in markdown order. -->
+
+
+<div class="chapter-body">
+  
+    <div class="chapter-body__text-block">
+      <p class="chapter-body__paragraph">Every twin flame longing has an energetic signature — the way your soul moves when no one's looking. We read your answers and what they say about your soul's shape. Here is what came through.</p>
+    </div>
+    
+    <div class="chapter-body__highlight-box">
+      <p class="chapter-body__highlight-box-paragraph">Your soul moves as #archetype_name#. The #room_strangers# and #someone_needs_you# answers you gave are the evidence the type fits.</p>
+    </div>
+    
+    <div class="chapter-body__text-block">
+      <p class="chapter-body__paragraph">Below are the five archetypes. At render time, only the one matching #archetype_name# is kept; the rest fall away.</p>
+    </div>
+    
+</div>
+
+  </div>
+</section></article>
+<article class="rm-page" data-page="5" data-brick="blank"><section class="container">
+  <div class="blank-chapter page-height">
+    <!-- Shared body region for Chapter_starter bricks.
+     Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
+     The block region is heterogeneous + ordered: builder strips these prototypes,
+     scans the page's markdown blocks, and re-emits cloned copies in markdown order. -->
+
+
+<div class="chapter-body">
+  
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">🪞 The Mirror Soul</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">Soft mirroring light — absorbs everything, feels what others feel, holds emotional space without trying. Their twin flame is the first soul who receives their empathy instead of consuming it.</p>
+      
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">🔥 The Catalyst</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">Electric, igniting spark — initiates change wherever they go. Their twin flame is the first soul who can hold their fire without flinching — the bond gives the heat somewhere to go.</p>
+      
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">🌿 The Healer</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">Steady, holding warmth — wounded healer, medicine carrier. Their twin flame is the first soul who arrives whole. The bond is the first time they get to be the one who is cared for.</p>
+      
+    </div>
+    
+</div>
+
+  </div>
+</section></article>
+<article class="rm-page" data-page="6" data-brick="blank"><section class="container">
+  <div class="blank-chapter page-height">
+    <!-- Shared body region for Chapter_starter bricks.
+     Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
+     The block region is heterogeneous + ordered: builder strips these prototypes,
+     scans the page's markdown blocks, and re-emits cloned copies in markdown order. -->
+
+
+<div class="chapter-body">
+  
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">🌙 The Mystic</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">Moonlit, knowing stillness — dreamer, attuned to signs and synchronicities. Their twin flame meets them on the layer of dreams first, before the practical world catches up.</p>
+      
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">⚓ The Anchor</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">Grounded, anchoring strength — the steady one everyone leans on. Their twin flame is the first relationship that doesn't ask them to be the strong one. The bond is the first place they get to rest.</p>
+      
+    </div>
+    
+    <img class="chapter-body__separator"
+         src="images/default_decorative_separator.png"
+         alt="decorative separator" />
+    
+</div>
+
+  </div>
+</section></article>
+<article class="rm-page" data-page="7" data-brick="themed_v3"><section class="container">
+  <div class="page-height themed-section__page-frame">
+    <div class="themed-section themed-section--v3">
+      <div class="themed-section__header">
+        <div class="themed-section__number-box">
+          <span class="themed-section__number">2</span>
+        </div>
+        <div class="themed-section__decoration">
+          <img src="images/default_header_decoration_2.png" alt="header decoration" />
+        </div>
+      </div>
+      <h1 class="themed-section__title">Your Twin Flame Sketch</h1>
+      <!-- Shared body region for Chapter_starter bricks.
+     Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
+     The block region is heterogeneous + ordered: builder strips these prototypes,
+     scans the page's markdown blocks, and re-emits cloned copies in markdown order. -->
+
+
+<div class="chapter-body">
+  
+    <div class="chapter-body__text-block">
+      <p class="chapter-body__paragraph">The portrait below was drawn around your archetype's energy — the posture, the expression, the quality of presence your twin flame carries.</p>
+    </div>
+    
+    <div class="chapter-body__text-block">
+      <p class="chapter-body__paragraph">It isn't a photograph. It's a felt likeness — the soul-shape of the person built to meet you, drawn the way an old friend might sketch a face from memory.</p>
+    </div>
+    
+    <p class="chapter-body__centered-quote">*Look at it the way you'd look at a face you've half-remembered from a dream. Notice what tightens in your chest.*</p>
+    
+    <div class="chapter-body__bordered-box">
+      <p class="chapter-body__bordered-box-paragraph">Placeholder image — final report renders the per-user AI sketch from ai-matrix-sketch-prompt.md using #archetype_posture#, #archetype_expression#, and #archetype_aura_word#.</p>
+    </div>
+    
+</div>
+
+    </div>
+    <img class="bottom-image" src="images/default_bottom_image.jpg" alt="decorative bottom" />
+  </div>
+</section></article>
+<article class="rm-page" data-page="8" data-brick="themed_v2"><section class="container">
+  <div class="themed-section themed-section--v2 section-02 page-height">
+    <img src="images/default_theme_v2_background_image.jpg" alt="cover background" class="headline-img_02" />
+    <div class="themed-section__header">
+      <div class="themed-section__number-box">
+        <span class="themed-section__number">3</span>
+      </div>
+      <div class="themed-section__decoration">
+        <img src="images/default_header_decoration.png" alt="header decoration" />
+      </div>
+    </div>
+    <div class="box-content__middle">
+      <h1>The Mirror Profile</h1>
+      <!-- Shared body region for Chapter_starter bricks.
+     Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
+     The block region is heterogeneous + ordered: builder strips these prototypes,
+     scans the page's markdown blocks, and re-emits cloned copies in markdown order. -->
+
+
+<div class="chapter-body">
+  
+    <div class="chapter-body__text-block">
+      <p class="chapter-body__paragraph">Three questions about the soul built to mirror yours — how they think, what they carry, and what's already shared between you. We tie each back to your own #feels_true#, #carrying#, and #scene_calling# answers.</p>
+    </div>
+    
+</div>
+
+    </div>
+  </div>
+</section></article>
+<article class="rm-page" data-page="9" data-brick="blank"><section class="container">
+  <div class="blank-chapter page-height">
+    <!-- Shared body region for Chapter_starter bricks.
+     Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
+     The block region is heterogeneous + ordered: builder strips these prototypes,
+     scans the page's markdown blocks, and re-emits cloned copies in markdown order. -->
+
+
+<div class="chapter-body">
+  
+    <div class="chapter-body__text-block">
+      <p class="chapter-body__paragraph">For each archetype below, all three threads are folded into one block — how they think, what they carry, and the recognition already moving between you. At render time, only the matching archetype is kept.</p>
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">🪞 The Mirror Soul</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">Thinks slowly, with the room first — and you'll recognise each other in that pause others fill with noise. Carries a quiet ache from being too perceptive in places that punished it; by the time they meet you, the apologising stops on both sides. The thread between you is already a softness alive in the felt, long before it lands in the said.</p>
+      
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">🔥 The Catalyst</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">Thinks in fire too — doesn't fade the flame to make others comfortable, doesn't argue your intensity, walks into it. Carries the ache of having been too much for someone smaller, and arrives at full burn looking for a flame that meets them. The recognition isn't slow — it's a strike, the kind of charge other people sense from across a room.</p>
+      
+    </div>
+    
+</div>
+
+  </div>
+</section></article>
+<article class="rm-page" data-page="10" data-brick="blank"><section class="container">
+  <div class="blank-chapter page-height">
+    <!-- Shared body region for Chapter_starter bricks.
+     Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
+     The block region is heterogeneous + ordered: builder strips these prototypes,
+     scans the page's markdown blocks, and re-emits cloned copies in markdown order. -->
+
+
+<div class="chapter-body">
+  
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">🌿 The Healer</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">Doesn't lead with their wound — has already found their medicine and isn't drawing on yours. Carries the archive of nights spent pouring from an empty cup, and by the time they meet you, has put the empty cup down for good. The thread between you runs on reciprocity, not rescue — it's the first relationship you don't have to hold up.</p>
+      
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">🌙 The Mystic</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">Thinks in symbol the way you do — notices what surfaces in songs, numbers, half-spoken sentences, and trusts those signals as data. Carries the ache of feeling too much for the practical world, and has stopped explaining their inner life to people who can't. The bond starts in the unseen — in dreams, in feelings you couldn't trace — and lands in the seen after.</p>
+      
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">⚓ The Anchor</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">Thinks in steady — holds the line for what matters, leads with what they can be counted on for. Carries the archive of being leaned on, and has started asking who leans on them. The thread between you is anchored before it's announced — your nervous systems already know the other is reliable.</p>
+      
+    </div>
+    
+    <div class="chapter-body__text-block">
+      <p class="chapter-body__paragraph">They aren't a duplicate of you; they're a counterweight.</p>
+    </div>
+    
+</div>
+
+  </div>
+</section></article>
+<article class="rm-page" data-page="11" data-brick="themed_v3"><section class="container">
+  <div class="page-height themed-section__page-frame">
+    <div class="themed-section themed-section--v3">
+      <div class="themed-section__header">
+        <div class="themed-section__number-box">
+          <span class="themed-section__number">4</span>
+        </div>
+        <div class="themed-section__decoration">
+          <img src="images/default_header_decoration_2.png" alt="header decoration" />
+        </div>
+      </div>
+      <h1 class="themed-section__title">Your 5 Recognition Signs</h1>
+      <!-- Shared body region for Chapter_starter bricks.
+     Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
+     The block region is heterogeneous + ordered: builder strips these prototypes,
+     scans the page's markdown blocks, and re-emits cloned copies in markdown order. -->
+
+
+<div class="chapter-body">
+  
+    <div class="chapter-body__text-block">
+      <p class="chapter-body__paragraph">Recognition signs are how your soul tells you the bond is approaching. They aren't coincidences. They're the small, precise ways the meeting announces itself before it lands.</p>
+    </div>
+    
+    <div class="chapter-body__highlight-box">
+      <p class="chapter-body__highlight-box-paragraph">One sign from #signs# is your soul's primary recognition channel — keep an eye on it this week.</p>
+    </div>
+    
+</div>
+
+    </div>
+    <img class="bottom-image" src="images/default_bottom_image.jpg" alt="decorative bottom" />
+  </div>
+</section></article>
+<article class="rm-page" data-page="12" data-brick="blank"><section class="container">
+  <div class="blank-chapter page-height">
+    <!-- Shared body region for Chapter_starter bricks.
+     Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
+     The block region is heterogeneous + ordered: builder strips these prototypes,
+     scans the page's markdown blocks, and re-emits cloned copies in markdown order. -->
+
+
+<div class="chapter-body">
+  
+    <div class="chapter-body__titled-box">
+      <div class="chapter-body__titled-box-header">
+        <img class="chapter-body__titled-box-icon" src="images/default_zodiac_icon.png" alt="" />
+        <h3 class="chapter-body__titled-box-title">1. The numbers that won't leave you alone</h3>
+      </div>
+      <div class="chapter-body__titled-box-body">
+        
+        <p class="chapter-body__titled-box-paragraph">11:11. 222. 333. 444. A recognition signal turned to its loudest setting. When one lands, pause for three seconds and notice what you were just thinking.</p>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="chapter-body__titled-box">
+      <div class="chapter-body__titled-box-header">
+        <img class="chapter-body__titled-box-icon" src="images/default_zodiac_icon.png" alt="" />
+        <h3 class="chapter-body__titled-box-title">2. The dream you can't fully see yet</h3>
+      </div>
+      <div class="chapter-body__titled-box-body">
+        
+        <p class="chapter-body__titled-box-paragraph">A face you almost saw. A presence you woke up missing. Write down whatever fragment you can hold each morning; the pattern surfaces across weeks.</p>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="chapter-body__titled-box">
+      <div class="chapter-body__titled-box-header">
+        <img class="chapter-body__titled-box-icon" src="images/default_zodiac_icon.png" alt="" />
+        <h3 class="chapter-body__titled-box-title">3. The chill or warmth with no source</h3>
+      </div>
+      <div class="chapter-body__titled-box-body">
+        
+        <p class="chapter-body__titled-box-paragraph">Your skin reacts before your mind does. A wave of warmth in a cool room, a chill down your spine. Pause and ask what your body just noticed.</p>
+        
+        
+        
+      </div>
+    </div>
+    
+</div>
+
+  </div>
+</section></article>
+<article class="rm-page" data-page="13" data-brick="blank"><section class="container">
+  <div class="blank-chapter page-height">
+    <!-- Shared body region for Chapter_starter bricks.
+     Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
+     The block region is heterogeneous + ordered: builder strips these prototypes,
+     scans the page's markdown blocks, and re-emits cloned copies in markdown order. -->
+
+
+<div class="chapter-body">
+  
+    <div class="chapter-body__titled-box">
+      <div class="chapter-body__titled-box-header">
+        <img class="chapter-body__titled-box-icon" src="images/default_zodiac_icon.png" alt="" />
+        <h3 class="chapter-body__titled-box-title">4. The song that arrives like a message</h3>
+      </div>
+      <div class="chapter-body__titled-box-body">
+        
+        <p class="chapter-body__titled-box-paragraph">A song you haven't heard in years, suddenly playing twice in one day. Listen once more and ask what truth it just confirmed.</p>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="chapter-body__titled-box">
+      <div class="chapter-body__titled-box-header">
+        <img class="chapter-body__titled-box-icon" src="images/default_zodiac_icon.png" alt="" />
+        <h3 class="chapter-body__titled-box-title">5. The face that keeps surfacing</h3>
+      </div>
+      <div class="chapter-body__titled-box-body">
+        
+        <p class="chapter-body__titled-box-paragraph">A person you've half-seen — in a dream, a daydream, a flash of imagination. Don't force the face into focus; recognition lands cleanest when you stop looking directly.</p>
+        
+        
+        
+      </div>
+    </div>
+    
+    <div class="chapter-body__titled-box">
+      <div class="chapter-body__titled-box-header">
+        <img class="chapter-body__titled-box-icon" src="images/default_zodiac_icon.png" alt="" />
+        <h3 class="chapter-body__titled-box-title">6. The sense of being thought of</h3>
+      </div>
+      <div class="chapter-body__titled-box-body">
+        
+        <p class="chapter-body__titled-box-paragraph">A small inner ping. A pull of attention without a source. When it lands, place one hand on your chest and let it stay for a few seconds.</p>
+        
+        
+        
+      </div>
+    </div>
+    
+</div>
+
+  </div>
+</section></article>
+<article class="rm-page" data-page="14" data-brick="themed_v4"><section class="container">
+  <div class="themed-section themed-section--v4 page-height">
+    <div class="themed-section__header">
+      <div class="themed-section__number-box">
+        <span class="themed-section__number">5</span>
+      </div>
+    </div>
+    <h1 class="themed-section__title">The Block &amp; The Soul Work</h1>
+    <!-- Shared body region for Chapter_starter bricks.
+     Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
+     The block region is heterogeneous + ordered: builder strips these prototypes,
+     scans the page's markdown blocks, and re-emits cloned copies in markdown order. -->
+
+
+<div class="chapter-body">
+  
+    <div class="chapter-body__text-block">
+      <p class="chapter-body__paragraph">Twin flame meetings rarely fail because of timing alone. Most souls describe one specific friction they had to release before the meeting could land. Yours has a name — and a practice that walks you through it.</p>
+    </div>
+    
+    <div class="chapter-body__highlight-box">
+      <p class="chapter-body__highlight-box-paragraph">You said #blocking# — that's the one specific friction between this archetype's energy and the meeting you're pulling toward.</p>
+    </div>
+    
+    <div class="chapter-body__text-block">
+      <p class="chapter-body__paragraph">For each archetype, the shift and one practice to start tomorrow. At render time, only the matching archetype is kept.</p>
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">🪞 The Mirror Soul — let yourself be received</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">Practice — each morning, name two feelings: one that's yours, one you picked up from someone else. The line between you and the room gets cleaner the more you practise.</p>
+      
+    </div>
+    
+</div>
+
+  </div>
+</section></article>
+<article class="rm-page" data-page="15" data-brick="blank"><section class="container">
+  <div class="blank-chapter page-height">
+    <!-- Shared body region for Chapter_starter bricks.
+     Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
+     The block region is heterogeneous + ordered: builder strips these prototypes,
+     scans the page's markdown blocks, and re-emits cloned copies in markdown order. -->
+
+
+<div class="chapter-body">
+  
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">🔥 The Catalyst — keep the heat steady, not just sudden</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">Practice — once a day, do the un-loud thing: the quiet text, the unsigned compliment, the help nobody saw you give. Steady warmth is a muscle that builds with use.</p>
+      
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">🌿 The Healer — receive without earning it</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">Practice — when the urge to fix arrives, ask "is this mine to carry, or am I taking it?" Most days the answer surprises you. Trust the answer.</p>
+      
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">🌙 The Mystic — bring the unseen into daily ground</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">Practice — once a day, do one fully practical action with full presence: washing a cup, folding a shirt, tying your shoes. The mystic needs ground to land on.</p>
+      
+    </div>
+    
+</div>
+
+  </div>
+</section></article>
+<article class="rm-page" data-page="16" data-brick="blank"><section class="container">
+  <div class="blank-chapter page-height">
+    <!-- Shared body region for Chapter_starter bricks.
+     Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
+     The block region is heterogeneous + ordered: builder strips these prototypes,
+     scans the page's markdown blocks, and re-emits cloned copies in markdown order. -->
+
+
+<div class="chapter-body">
+  
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">⚓ The Anchor — let the line be held for you</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">Practice — each day, name one thing you're allowed to not be responsible for. Say it out loud: "Not mine." The world doesn't end when you put it down.</p>
+      
+    </div>
+    
+    <div class="chapter-body__bordered-box">
+      <p class="chapter-body__bordered-box-paragraph">Consistency is the medicine; intensity is the noise. Pick one practice and stay with it for two weeks before adding anything else.</p>
+    </div>
+    
+</div>
+
+  </div>
+</section></article>
+<article class="rm-page" data-page="17" data-brick="themed_v2"><section class="container">
+  <div class="themed-section themed-section--v2 section-02 page-height">
+    <img src="images/default_theme_v2_background_image.jpg" alt="cover background" class="headline-img_02" />
+    <div class="themed-section__header">
+      <div class="themed-section__number-box">
+        <span class="themed-section__number">6</span>
+      </div>
+      <div class="themed-section__decoration">
+        <img src="images/default_header_decoration_2.png" alt="header decoration" />
+      </div>
+    </div>
+    <div class="box-content__middle">
+      <h1>Hidden Strength, Two Futures &amp; Your Mantra</h1>
+      <!-- Shared body region for Chapter_starter bricks.
+     Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
+     The block region is heterogeneous + ordered: builder strips these prototypes,
+     scans the page's markdown blocks, and re-emits cloned copies in markdown order. -->
+
+
+<div class="chapter-body">
+  
+    <div class="chapter-body__text-block">
+      <p class="chapter-body__paragraph">The wound built something in you that most people will never have. This is the part of the reading nobody warns you about — the cost was real, and the gift is also real. Both can be true at once.</p>
+    </div>
+    
+</div>
+
+    </div>
+  </div>
+</section></article>
+<article class="rm-page" data-page="18" data-brick="blank"><section class="container">
+  <div class="blank-chapter page-height">
+    <!-- Shared body region for Chapter_starter bricks.
+     Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
+     The block region is heterogeneous + ordered: builder strips these prototypes,
+     scans the page's markdown blocks, and re-emits cloned copies in markdown order. -->
+
+
+<div class="chapter-body">
+  
+    <div class="chapter-body__text-block">
+      <p class="chapter-body__paragraph">Your hidden strength, by archetype. At render time, only the matching archetype is kept.</p>
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">🪞 The Mirror Soul</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">You can feel a person's truth before they say a word. Used on your own behalf, it lets you choose people who match you instead of dissolving into people who don't.</p>
+      
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">🔥 The Catalyst</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">You ignite change in other people without trying. Used on your own life, it's the engine that brings the meeting forward by years.</p>
+      
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">🌿 The Healer</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">You can hold pain that other people can't go near. Used on yourself, it becomes the most loyal companionship you'll ever have.</p>
+      
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">🌙 The Mystic</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">You see soul-shapes the practical world can't measure. Used in your own life, those eyes find the right people, the right rooms, the right next step.</p>
+      
+    </div>
+    
+</div>
+
+  </div>
+</section></article>
+<article class="rm-page" data-page="19" data-brick="blank"><section class="container">
+  <div class="blank-chapter page-height">
+    <!-- Shared body region for Chapter_starter bricks.
+     Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
+     The block region is heterogeneous + ordered: builder strips these prototypes,
+     scans the page's markdown blocks, and re-emits cloned copies in markdown order. -->
+
+
+<div class="chapter-body">
+  
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">⚓ The Anchor</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">You have a steadiness most people would give years to develop. Used for yourself, that steadiness becomes the home base you've never had.</p>
+      
+    </div>
+    
+    <div class="chapter-body__text-block">
+      <p class="chapter-body__paragraph">Two futures are open in front of you. The first you've already been living. The second begins the day you take the first move.</p>
+    </div>
+    
+    <div class="chapter-body__text-block">
+      <p class="chapter-body__paragraph">If nothing changes — the same soul-pull, unsourced and unanswered. The bond doesn't disappear; it just stays one room over, waiting for a version of you that's done waiting.</p>
+    </div>
+    
+    <div class="chapter-body__text-block">
+      <p class="chapter-body__paragraph">If you start now — something small shifts first. You catch the pattern your archetype has been running. One ordinary morning you'll wake up and realise the soul-pull has changed shape — it isn't an ache anymore, it's a direction. The meeting follows the direction.</p>
+    </div>
+    
+    <p class="chapter-body__centered-quote">*#name#, the meeting follows the direction. The choice is yours.*</p>
+    
+    <div class="chapter-body__text-block">
+      <p class="chapter-body__paragraph">Your archetype's mantra — say it out loud, once in the morning, once before sleep. Only the matching archetype is kept at render.</p>
+    </div>
+    
+</div>
+
+  </div>
+</section></article>
+<article class="rm-page" data-page="20" data-brick="blank"><section class="container">
+  <div class="blank-chapter page-height">
+    <!-- Shared body region for Chapter_starter bricks.
+     Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
+     The block region is heterogeneous + ordered: builder strips these prototypes,
+     scans the page's markdown blocks, and re-emits cloned copies in markdown order. -->
+
+
+<div class="chapter-body">
+  
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">🪞 The Mirror Soul</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">*I am allowed to be received. I am the mirror, and the mirror is also held.*</p>
+      
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">🔥 The Catalyst</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">*My fire is already enough. The meeting comes to the flame that stayed lit.*</p>
+      
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">🌿 The Healer</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">*I am allowed to be the one who is held. The medicine in me also belongs to me.*</p>
+      
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">🌙 The Mystic</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">*The unseen is real. I am met on the layer I live on.*</p>
+      
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">⚓ The Anchor</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">*I am allowed to be held. The anchor is also lowered tonight.*</p>
+      
+    </div>
+    
+</div>
+
+  </div>
+</section></article>
+<article class="rm-page" data-page="21" data-brick="themed_v1"><section class="container">
+  <div class="themed-section themed-section--v1 page-height">
+    <div class="themed-section__header">
+      <div class="themed-section__number-box">
+        <span class="themed-section__number">7</span>
+      </div>
+      <div class="themed-section__decoration">
+        <img src="images/default_header_decoration.png" alt="header decoration" />
+      </div>
+    </div>
+    <h1 class="themed-section__title">Action Plan + Final Thoughts</h1>
+    <!-- Shared body region for Chapter_starter bricks.
+     Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
+     The block region is heterogeneous + ordered: builder strips these prototypes,
+     scans the page's markdown blocks, and re-emits cloned copies in markdown order. -->
+
+
+<div class="chapter-body">
+  
+    <div class="chapter-body__text-block">
+      <p class="chapter-body__paragraph">You came in carrying a soul-pull you couldn't fully explain. The pull was never random and never your imagination. It was a soul signature already scanning the field for its mirror — and now you know its shape, its name, and what it's scanning for.</p>
+    </div>
+    
+    <div class="chapter-body__bordered-box">
+      <p class="chapter-body__bordered-box-paragraph">The meeting will land in its own time. Your work isn't to summon it. Your work is to be the version of you they're approaching when they arrive.</p>
+    </div>
+    
+</div>
+
+  </div>
+</section></article>
+<article class="rm-page" data-page="22" data-brick="blank"><section class="container">
+  <div class="blank-chapter page-height">
+    <!-- Shared body region for Chapter_starter bricks.
+     Auto-appended whenever a brick's manifest declares `appends_body: "_body"`.
+     The block region is heterogeneous + ordered: builder strips these prototypes,
+     scans the page's markdown blocks, and re-emits cloned copies in markdown order. -->
+
+
+<div class="chapter-body">
+  
+    <div class="chapter-body__styled-box">
+      <h3 class="chapter-body__styled-box-subheadline">What to do with this reading</h3>
+      <p class="chapter-body__styled-box-paragraph">Four small moves to keep the reading alive after you put it down.</p>
+      
+      <ul class="chapter-body__styled-box-list"><li>Sit with your archetype — notice the sentence that made you stop. That's where the recognition is happening.</li></ul>
+      
+      <ul class="chapter-body__styled-box-list"><li>Pick one practice from your soul work map. One. The smallest one. Do it for two weeks.</li></ul>
+      
+      <ul class="chapter-body__styled-box-list"><li>Watch for one recognition sign in the next seven days. Don't chase — just notice.</li></ul>
+      
+      <ul class="chapter-body__styled-box-list"><li>Come back to this reading in 30 days. You'll read it differently.</li></ul>
+      
+    </div>
+    
+    <div class="chapter-body__colored-box">
+      <h3 class="chapter-body__colored-box-subheadline">A final note</h3>
+      
+      <p class="chapter-body__colored-box-paragraph">That work begins quietly, in the next twenty-four hours. Soul work breaks under load; it grows under repetition.</p>
+      
+    </div>
+    
+    <div class="chapter-body__highlight-box">
+      <p class="chapter-body__highlight-box-paragraph">Awareness, once it starts, doesn't stop.</p>
+    </div>
+    
+    <img class="chapter-body__separator"
+         src="images/default_decorative_separator.png"
+         alt="decorative separator" />
+    
+</div>
+
+  </div>
+</section></article>
+<article class="rm-page" data-page="23" data-brick="quote_v2"><section class="container">
+  <div class="quote-page quote-page--v2 page-height" style="background-image:url('images/default_quote_bg.jpg');">
+    <div class="quote-wrapper-inner">
+      <p>"Every ending is a constellation rearranging itself into a new beginning."</p>
+    </div>
+  </div>
+</section></article>
+<article class="rm-page" data-page="24" data-brick="reviews_v1"><section class="container reviews-box">
+  <div class="reviews-container page-height">
+    <div class="rating-summary">
+      <div class="rating-stars">
+        <h2 class="reviews-title">Reader Reviews</h2>
+        <div class="rating-number-container">
+          <span class="rating-number">4.8 rating</span>
+          <img src="images/img_reviews_stars.png" alt="">
+        </div>
+      </div>
+      <div class="reviews-avatars-container">
+        <div class="reviews-avatars">
+          <img src="images/img_advisor_01.png" alt="" class="reviews-avatar">
+          <img src="images/img_advisor_02.png" alt="" class="reviews-avatar">
+          <img src="images/img_advisor_03.png" alt="" class="reviews-avatar">
+          <img src="images/img_advisor_04.png" alt="" class="reviews-avatar">
+        </div>
+        <p class="recommended-by">Recommended by 84,000+ souls this month</p>
+      </div>
+    </div>
+
+    
+    <div class="review-item">
+      <div class="review-item__avatar">
+        <img src="images/img_advisor_01.png" alt="">
+      </div>
+      <div class="review-item__content">
+        <div class="review-item__info">
+          <h3 class="review-item__name">Maya</h3>
+          <p class="review-item__date">2 days ago</p>
+          <img src="images/img_reviews_stars.png" alt="">
+        </div>
+        <p class="review-item__text">"I cried looking at the sketch. It looked like a face I've been dreaming of since I was nineteen. I'd never told anyone about that face before."</p>
+      </div>
+    </div>
+    
+    <div class="review-item">
+      <div class="review-item__avatar">
+        <img src="images/img_advisor_02.png" alt="">
+      </div>
+      <div class="review-item__content">
+        <div class="review-item__info">
+          <h3 class="review-item__name">Elena</h3>
+          <p class="review-item__date">5 days ago</p>
+          <img src="images/img_reviews_stars.png" alt="">
+        </div>
+        <p class="review-item__text">"It named the exact thing I needed to release before the meeting could happen. Within two weeks something shifted that I'd been stuck on for years."</p>
+      </div>
+    </div>
+    
+    <div class="review-item">
+      <div class="review-item__avatar">
+        <img src="images/img_advisor_03.png" alt="">
+      </div>
+      <div class="review-item__content">
+        <div class="review-item__info">
+          <h3 class="review-item__name">Sofia</h3>
+          <p class="review-item__date">1 week ago</p>
+          <img src="images/img_reviews_stars.png" alt="">
+        </div>
+        <p class="review-item__text">"Three years of therapy never put it into words this clearly. I forwarded my reading to my best friend and she finally understood the loneliness I couldn't explain."</p>
+      </div>
+    </div>
+    
+    <div class="review-item">
+      <div class="review-item__avatar">
+        <img src="images/img_advisor_04.png" alt="">
+      </div>
+      <div class="review-item__content">
+        <div class="review-item__info">
+          <h3 class="review-item__name">Iris</h3>
+          <p class="review-item__date">3 days ago</p>
+          <img src="images/img_reviews_stars.png" alt="">
+        </div>
+        <p class="review-item__text">"I'd written off twin flame stuff as wishful thinking. The reading wasn't fluffy at all. It was specific, honest, and a little uncomfortable in the right way."</p>
+      </div>
+    </div>
+    
+  </div>
+</section></article>
+<article class="rm-page" data-page="25" data-brick="disclaimer_v1"><section class="container">
+  <div class="disclaimer-container page-height">
+    <div class="disclaimer">
+      <div class="disclaimer__header">
+        <h2 class="disclaimer__title">Important Notice</h2>
+      </div>
+      <div class="disclaimer__body">
+        
+        <p class="disclaimer__text">This Twin Flame Mirror Reading is generated for personal reflection and entertainment purposes only. It does not constitute professional psychological, medical, or relationship advice.</p>
+        
+        <p class="disclaimer__text">The archetypes, recognition signs, and soul-work practices described here are interpretive frameworks, not predictions. Consult a qualified professional before making significant life decisions based on the guidance contained herein.</p>
+        
+        <p class="disclaimer__text">Cosmicorion respects your privacy. Your answers and reading are stored securely and never shared with third parties.</p>
+        
+      </div>
+    </div>
+  </div>
+</section></article>
+</body>
+</html>
