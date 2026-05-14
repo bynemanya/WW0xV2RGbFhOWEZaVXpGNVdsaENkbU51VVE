@@ -5,8 +5,9 @@
   body { font-family: var(--font-primary); }
 
   .container {
-    width: 210mm;
-    height: 297mm;
+    width: 100%;
+    max-width: 37.1875em;
+    min-height: 842px;
     max-width: none;
     margin: 0 auto 10mm;
     background-color: var(--color-bg-container);
