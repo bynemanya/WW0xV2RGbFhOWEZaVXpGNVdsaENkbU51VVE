@@ -411,7 +411,7 @@ body {
   }
 
 /* brick: quote_v1 */
-.quote-page {
+.quote-page.quote-page--v1 {
     display: flex;
     width: 100%;
     box-sizing: border-box;
@@ -449,7 +449,7 @@ body {
 
 
   @media print {
-    .quote-page {
+    .quote-page.quote-page--v1 {
       display: flex;
       width: 210mm;
       height: 297mm;
@@ -1308,6 +1308,10 @@ body {
       margin-bottom: 40px;
       text-align: left;
     }
+    .themed-section__page-frame {
+      position: static;
+      width: 100%;
+    }
     .bottom-image {
       width: 210mm;
       max-width: none;
@@ -1417,7 +1421,7 @@ body {
   }
 
 /* brick: quote_v2 */
-.quote-page {
+.quote-page.quote-page--v2 {
     position: relative;
     display: flex;
     width: 100%;
@@ -1428,14 +1432,11 @@ body {
     align-items: center;
     overflow: hidden;
     background-color: var(--color-quote-bg, #061b39);
-  }
-  .quote-page__bg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-origin: border-box;
+    background-clip: border-box;
   }
   .quote-wrapper-inner {
     position: relative;
@@ -1467,7 +1468,7 @@ body {
 
 
   @media print {
-    .quote-page {
+    .quote-page.quote-page--v2 {
       position: relative;
       display: flex;
       width: 210mm;
@@ -1479,16 +1480,13 @@ body {
       align-items: center;
       overflow: hidden;
       background-color: var(--color-quote-bg, #061b39);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-origin: border-box;
+      background-clip: border-box;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
-    }
-    .quote-page__bg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 1;
     }
     .quote-wrapper-inner {
       position: relative;
@@ -1660,6 +1658,8 @@ body {
       align-items: center;
       gap: 0;
       width: 100%;
+      min-height: 297mm;
+      box-sizing: border-box;
       background: var(--color-reviews-bg, #f6f5f6);
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
@@ -1681,10 +1681,9 @@ body {
       line-height: 34px;
     }
     .rating-number-container {
-      display: flex;
-      align-items: center;
-      gap: 0;
+      display: block;
       margin-top: 8px;
+      text-align: left;
     }
     .rating-number {
       color: var(--color-reviews-text, #222163);
@@ -1698,8 +1697,10 @@ body {
       padding-right: 8px;
     }
     .rating-number-container img {
+      display: inline-block;
       max-width: 31.75mm;
-      display: block;
+      width: auto;
+      vertical-align: middle;
     }
     .rating-stars {
       display: flex;
@@ -2085,9 +2086,9 @@ body {
   </div>
 </section></article>
 <article class="rm-page" data-page="3" data-brick="quote_v1"><section class="container">
-  <div class="quote-page page-height">
+  <div class="quote-page quote-page--v1 page-height">
     <div class="quote-wrapper-inner">
-      <p>&quot;Small steps, taken steadily, change more than grand gestures ever could.&quot;</p>
+      <p>"Small steps, taken steadily, change more than grand gestures ever could."</p>
     </div>
   </div>
 </section></article>
@@ -2111,7 +2112,7 @@ body {
 <div class="chapter-body">
   
     <div class="chapter-body__text-block">
-      <p class="chapter-body__paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. This opening chapter lays out the core ideas you&#x27;ll encounter, with each paragraph adding another layer to the foundation.</p>
+      <p class="chapter-body__paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. This opening chapter lays out the core ideas you'll encounter, with each paragraph adding another layer to the foundation.</p>
     </div>
     
     <div class="chapter-body__text-block">
@@ -2126,7 +2127,7 @@ body {
       <p class="chapter-body__bordered-box-paragraph">Look back on past relationships and reflect on the patterns that have emerged. Knowing what you truly need will help you align with someone who shares your values.</p>
     </div>
     
-    <p class="chapter-body__centered-quote">*The truth is, understanding the foundations isn&#x27;t about memorizing them — it&#x27;s about letting them shape how you read the rest.*</p>
+    <p class="chapter-body__centered-quote">*The truth is, understanding the foundations isn't about memorizing them — it's about letting them shape how you read the rest.*</p>
     
 </div>
 
@@ -2203,7 +2204,7 @@ body {
     </div>
     
     <div class="chapter-body__highlight-box">
-      <p class="chapter-body__highlight-box-paragraph">A second highlight that lands on the overflow page, reinforcing the chapter&#x27;s central idea.</p>
+      <p class="chapter-body__highlight-box-paragraph">A second highlight that lands on the overflow page, reinforcing the chapter's central idea.</p>
     </div>
     
     <img class="chapter-body__separator"
@@ -2260,7 +2261,7 @@ body {
     
     <div class="chapter-body__styled-box">
       <h3 class="chapter-body__styled-box-subheadline">An aside</h3>
-      <p class="chapter-body__styled-box-paragraph">A short detour to highlight an idea that doesn&#x27;t quite fit the main flow but is worth noting.</p>
+      <p class="chapter-body__styled-box-paragraph">A short detour to highlight an idea that doesn't quite fit the main flow but is worth noting.</p>
       
       <ul class="chapter-body__styled-box-list"><li>First bullet — observe the shift as it happens</li></ul>
       
@@ -2313,7 +2314,7 @@ body {
     </ul>
     
     <div class="chapter-body__highlight-box">
-      <p class="chapter-body__highlight-box-paragraph">The turning point arrives quietly, before you realize it&#x27;s happened.</p>
+      <p class="chapter-body__highlight-box-paragraph">The turning point arrives quietly, before you realize it's happened.</p>
     </div>
     
     <img class="chapter-body__separator"
@@ -2369,7 +2370,7 @@ body {
 <div class="chapter-body">
   
     <div class="chapter-body__highlight-box">
-      <p class="chapter-body__highlight-box-paragraph">What comes next is shaped by the choices you make today, not by the ones you&#x27;ve already made.</p>
+      <p class="chapter-body__highlight-box-paragraph">What comes next is shaped by the choices you make today, not by the ones you've already made.</p>
     </div>
     
     <div class="chapter-body__text-block">
@@ -2378,7 +2379,7 @@ body {
     
     <div class="chapter-body__styled-box">
       <h3 class="chapter-body__styled-box-subheadline">Things to try this week</h3>
-      <p class="chapter-body__styled-box-paragraph">A small set of practical steps to carry the chapter&#x27;s ideas into the days ahead.</p>
+      <p class="chapter-body__styled-box-paragraph">A small set of practical steps to carry the chapter's ideas into the days ahead.</p>
       
       <ul class="chapter-body__styled-box-list"><li>Revisit the foundations from chapter one with fresh eyes</li></ul>
       
@@ -2392,7 +2393,7 @@ body {
       <p class="chapter-body__bordered-box-paragraph">Pause here and consider what these ideas would look like if you applied them this week — not someday, but now.</p>
     </div>
     
-    <p class="chapter-body__centered-quote">*What comes next is shaped by the choices you make today, not by the ones you&#x27;ve already made.*</p>
+    <p class="chapter-body__centered-quote">*What comes next is shaped by the choices you make today, not by the ones you've already made.*</p>
     
     <div class="chapter-body__titled-box">
       <div class="chapter-body__titled-box-header">
@@ -2401,7 +2402,7 @@ body {
       </div>
       <div class="chapter-body__titled-box-body">
         
-        <p class="chapter-body__titled-box-paragraph">Curious and adaptive, Gemini energy excels at bridging people and ideas. Look for conversations you&#x27;ve been avoiding.</p>
+        <p class="chapter-body__titled-box-paragraph">Curious and adaptive, Gemini energy excels at bridging people and ideas. Look for conversations you've been avoiding.</p>
         
         
         
@@ -2506,7 +2507,7 @@ body {
   
     <div class="chapter-body__styled-box">
       <h3 class="chapter-body__styled-box-subheadline">Carrying it forward</h3>
-      <p class="chapter-body__styled-box-paragraph">A short closing aside on how to keep the report&#x27;s ideas alive after you put it down.</p>
+      <p class="chapter-body__styled-box-paragraph">A short closing aside on how to keep the report's ideas alive after you put it down.</p>
       
       <ul class="chapter-body__styled-box-list"><li>Revisit one chapter each week for the next month</li></ul>
       
@@ -2519,7 +2520,7 @@ body {
     <div class="chapter-body__colored-box">
       <h3 class="chapter-body__colored-box-subheadline">4. Close with care</h3>
       
-      <p class="chapter-body__colored-box-paragraph">End every reflection by naming one thing you&#x27;re grateful for. It anchors the lesson in your body, not just your mind.</p>
+      <p class="chapter-body__colored-box-paragraph">End every reflection by naming one thing you're grateful for. It anchors the lesson in your body, not just your mind.</p>
       
     </div>
     
@@ -2614,10 +2615,9 @@ body {
   </div>
 </section></article>
 <article class="rm-page" data-page="15" data-brick="quote_v2"><section class="container">
-  <div class="quote-page page-height">
-    <img class="quote-page__bg" src="images/default_quote_bg.jpg" alt="quote background" />
+  <div class="quote-page quote-page--v2 page-height" style="background-image:url('images/default_quote_bg.jpg');">
     <div class="quote-wrapper-inner">
-      <p>&quot;Every ending is a constellation rearranging itself into a new beginning.&quot;</p>
+      <p>"Every ending is a constellation rearranging itself into a new beginning."</p>
     </div>
   </div>
 </section></article>
@@ -2653,7 +2653,7 @@ body {
           <p class="review-item__date">2 days ago</p>
           <img src="images/img_reviews_stars.png" alt="">
         </div>
-        <p class="review-item__text">&quot;A genuinely useful read from start to finish.&quot;</p>
+        <p class="review-item__text">"A genuinely useful read from start to finish."</p>
       </div>
     </div>
     
@@ -2667,7 +2667,7 @@ body {
           <p class="review-item__date">4 days ago</p>
           <img src="images/img_reviews_stars.png" alt="">
         </div>
-        <p class="review-item__text">&quot;Clear, thoughtful, and well structured.&quot;</p>
+        <p class="review-item__text">"Clear, thoughtful, and well structured."</p>
       </div>
     </div>
     
@@ -2681,7 +2681,7 @@ body {
           <p class="review-item__date">1 day ago</p>
           <img src="images/img_reviews_stars.png" alt="">
         </div>
-        <p class="review-item__text">&quot;Loved the pacing — easy to follow without feeling shallow.&quot;</p>
+        <p class="review-item__text">"Loved the pacing — easy to follow without feeling shallow."</p>
       </div>
     </div>
     
@@ -2695,7 +2695,7 @@ body {
           <p class="review-item__date">3 days ago</p>
           <img src="images/img_reviews_stars.png" alt="">
         </div>
-        <p class="review-item__text">&quot;Insightful and worth every minute.&quot;</p>
+        <p class="review-item__text">"Insightful and worth every minute."</p>
       </div>
     </div>
     
